@@ -1,4 +1,4 @@
-package ToDo_Client;
+package ToDo_Server;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,7 +10,7 @@ public class Client_Main extends Application {
 	private Client_Controller controller;
 
 	public static void main(String[] args) {
-		launch();
+		launch(args);
 		
 
 	}

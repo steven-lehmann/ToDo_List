@@ -1,4 +1,4 @@
-package ToDo_Client;
+package ToDo_Server;
 
 import java.util.ArrayList;
 
