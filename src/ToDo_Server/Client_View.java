@@ -218,7 +218,7 @@ public class Client_View {
 		
 		
 		//Set Scene
-		scene = new Scene(toDoView, 800, 550);
+		scene = new Scene(root, 800, 550);
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("ToDo App");
