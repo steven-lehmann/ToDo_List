@@ -3,6 +3,7 @@ package ToDo_Server;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -34,7 +35,8 @@ public class Client_View {
 	
 	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin,
 		lbPortMyView, lbPortNrMyView, lbPortOurView, lbPortNrOurView, lbServerMyView, lbServerIPMyView,
-			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, lbCreateDate;
+			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, 
+			lbCreateDate, lbPriority;
 	
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPOURVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNROURVIEW = "50002"; 
@@ -49,6 +51,8 @@ public class Client_View {
 	protected DatePicker dpDueDate, dpCreateDate;
 	
 	protected CheckBox cbShare;
+	
+	protected ChoiceBox chbPriority;
 	
 	protected PasswordField txtpPassword, txtpPasswordLogin;
 
@@ -187,6 +191,7 @@ public class Client_View {
 		this.lbShare = new Label("ToDo teilen");
 		this.lbCreator = new Label("Erstellt von");
 		this.lbCreateDate = new Label("Erstellt am");
+		this.lbPriority = new Label("Priorität");
 		
 		this.txtTitle = new TextField();
 		this.txtaDescription = new TextArea();
@@ -194,19 +199,22 @@ public class Client_View {
 		this.cbShare = new CheckBox();
 		this.txtCreator = new TextField();
 		this.dpCreateDate = new DatePicker();
+		this.chbPriority = new ChoiceBox();
 		
 		this.centerToDo.add(this.lbTitle, 0, 0);
 		this.centerToDo.add(this.txtTitle, 1, 0);
 		this.centerToDo.add(this.lbDescription, 0, 1);
 		this.centerToDo.add(this.txtaDescription, 1, 1);
-		this.centerToDo.add(this.lbDueDate, 0, 2);
-		this.centerToDo.add(this.dpDueDate, 1, 2);
-		this.centerToDo.add(this.lbShare, 0, 3);
-		this.centerToDo.add(this.cbShare, 1, 3);
-		this.centerToDo.add(this.lbCreator, 0, 4);
-		this.centerToDo.add(this.txtCreator, 1, 4);
-		this.centerToDo.add(this.lbCreateDate, 0, 5);
-		this.centerToDo.add(this.dpCreateDate, 1, 5);
+		this.centerToDo.add(this.lbPriority, 0, 2);
+		this.centerToDo.add(this.chbPriority, 1, 2);
+		this.centerToDo.add(this.lbDueDate, 0, 3);
+		this.centerToDo.add(this.dpDueDate, 1, 3);
+		this.centerToDo.add(this.lbShare, 0, 4);
+		this.centerToDo.add(this.cbShare, 1, 4);
+		this.centerToDo.add(this.lbCreator, 0, 5);
+		this.centerToDo.add(this.txtCreator, 1, 5);
+		this.centerToDo.add(this.lbCreateDate, 0, 6);
+		this.centerToDo.add(this.dpCreateDate, 1, 6);
 		
 		
 		this.toolbarToDo.getItems().addAll(this.btHome, this.btSave);
@@ -218,7 +226,7 @@ public class Client_View {
 		
 		
 		//Set Scene
-		scene = new Scene(root, 800, 550);
+		scene = new Scene(toDoView, 800, 550);
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("ToDo App");
