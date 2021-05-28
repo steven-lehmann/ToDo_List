@@ -21,7 +21,7 @@ public class Client_View {
 	final private Client_Model model;
 	protected static Stage stage;
 	
-	protected Scene scene;
+	protected Scene sceneLogin, sceneRegistration, sceneMainView, sceneSharedToDos, sceneCreateToDo;
 	
 	protected BorderPane root, registrationView, loginView, myToDoView, ourToDoView, toDoView;
 	
@@ -33,7 +33,7 @@ public class Client_View {
 	
 	protected ToolBar toolbarMyView, toolbarOurView, bottombarMyView, bottombarOurView, toolbarToDo, bottombarToDo;
 	
-	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin,
+	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin, lbIpAddress, lbPort,
 		lbPortMyView, lbPortNrMyView, lbPortOurView, lbPortNrOurView, lbServerMyView, lbServerIPMyView,
 			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, 
 			lbCreateDate, lbPriority;
@@ -42,9 +42,9 @@ public class Client_View {
 				PORTNROURVIEW = "50002"; 
 	
 	protected Button btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btOurToDo,
-		btMyToDo, btLogoutOurView, btHome, btSave, btDelete;
+		btMyToDo, btLogoutOurView, btHome, btSave, btDelete, btCreateToDo;
 	
-	protected TextField txtUsername, txtUsernameLogin, txtTitle, txtCreator;
+	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator;
 	
 	protected TextArea txtaDescription;
 	
@@ -52,7 +52,7 @@ public class Client_View {
 	
 	protected CheckBox cbShare;
 	
-	protected ChoiceBox chbPriority;
+	protected ChoiceBox <Priority> chbPriority;
 	
 	protected PasswordField txtpPassword, txtpPasswordLogin;
 
@@ -106,9 +106,13 @@ public class Client_View {
 		this.lbLogin = new Label("Login");
 		this.lbUsernameLogin = new Label("Benutzername");
 		this.lbUserPasswordLogin = new Label("Passwort");
+		this.lbIpAddress = new Label ("IP address");
+		this.lbPort = new Label ("Port");
 		
 		this.txtUsernameLogin = new TextField();
 		this.txtpPasswordLogin = new PasswordField();
+		this.txtIpAddress = new TextField();
+		this.txtPort = new TextField();
 		
 		this.btLoginUser = new Button("Login");
 		
@@ -117,7 +121,12 @@ public class Client_View {
 		this.centerLogin.add(this.txtUsernameLogin, 1, 1);
 		this.centerLogin.add(this.lbUserPasswordLogin, 0, 2);
 		this.centerLogin.add(this.txtpPasswordLogin, 1, 2);
-		this.centerLogin.add(this.btLoginUser, 2, 3);
+		this.centerLogin.add(this.lbIpAddress, 0, 3);
+		this.centerLogin.add(this.txtIpAddress, 1, 3);
+		this.centerLogin.add(this.lbPort, 0, 4);
+		this.centerLogin.add(this.txtPort, 1, 4);
+		this.centerLogin.add(this.btLoginUser, 0, 5);
+		this.centerLogin.add(this.btRegistration, 1, 5);
 		
 		this.loginView.setCenter(this.centerLogin);
 		
@@ -133,13 +142,14 @@ public class Client_View {
 		this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
 		this.btOurToDo = new Button("Unsere ToDo's");
+		this.btCreateToDo = new Button("+ ToDo");
 		
 		this.lbPortMyView = new Label("Port: ");
 		this.lbPortNrMyView = new Label(this.PORTNRMYVIEW);
 		this.lbServerMyView = new Label("Server IP: ");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
 		
-		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btOurToDo);
+		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btOurToDo, this.btCreateToDo);
 		this.bottombarMyView.getItems().addAll(this.lbPortMyView, this.lbPortNrMyView, this.lbServerMyView, this.lbServerIPMyView);	
 		
 		
@@ -199,7 +209,8 @@ public class Client_View {
 		this.cbShare = new CheckBox();
 		this.txtCreator = new TextField();
 		this.dpCreateDate = new DatePicker();
-		this.chbPriority = new ChoiceBox();
+		this.chbPriority = new ChoiceBox <Priority>();
+		this.chbPriority.getItems().addAll(Priority.values());
 		
 		this.centerToDo.add(this.lbTitle, 0, 0);
 		this.centerToDo.add(this.txtTitle, 1, 0);
@@ -226,17 +237,88 @@ public class Client_View {
 		
 		
 		//Set Scene
-		scene = new Scene(toDoView, 800, 550);
-		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-		stage.setScene(scene);
+		sceneLogin = new Scene(loginView, 800, 550);
+		sceneLogin.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneLogin);
 		stage.setTitle("ToDo App");
+		
+		sceneRegistration = new Scene(registrationView, 800, 550);
+		sceneRegistration.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneRegistration);
+		stage.setTitle("ToDo App");
+		
+		sceneMainView = new Scene(myToDoView, 800, 550);
+		sceneMainView.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneMainView);
+		stage.setTitle("ToDo App");
+		
+		sceneSharedToDos = new Scene(ourToDoView, 800, 550);
+		sceneSharedToDos.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneSharedToDos);
+		stage.setTitle("ToDo App");
+		
+		sceneCreateToDo = new Scene(toDoView, 800, 550);
+		sceneCreateToDo.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneCreateToDo);
+		stage.setTitle("ToDo App");
+		
+		
 
 		
 	}
 	
 	
 	public void start() {
+		stage.setScene(sceneLogin);
 		stage.show();
+	}
+
+
+	public void changeViewRegistration() {
+		stage.setScene(sceneRegistration);
+		stage.show();
+		
+	}
+
+
+	public void chageViewLogin() {
+		stage.setScene(sceneLogin);
+		stage.show();
+		
+	}
+
+
+	public void changeMainView() {
+		stage.setScene(sceneMainView);
+		stage.show();
+		
+	}
+
+
+	public void changeViewOurToDOs() {
+		stage.setScene(sceneSharedToDos);
+		stage.show();
+	}
+
+
+	public void changeViewCreateToDOs() {
+		stage.setScene(sceneCreateToDo);
+		stage.show();
+		
+	}
+
+
+	public void backToLogin() {
+		stage.setScene(sceneLogin);
+		stage.show();
+		
+	}
+
+
+	public void changeVieMyToDOs() {
+		stage.setScene(sceneMainView);
+		stage.show();
+		
 	}
 	
 
