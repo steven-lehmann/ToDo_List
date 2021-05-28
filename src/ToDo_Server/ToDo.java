@@ -2,7 +2,7 @@ package ToDo_Server;
 
 import java.time.LocalDate;
 
-public class ToDo {
+public class ToDo implements Comparable <ToDo> {
 	
 	private static int IDNr = 0;
 	private final int ID;
@@ -16,6 +16,11 @@ public class ToDo {
 		return ++IDNr;
 	}
 	
+	@Override
+	public String toString() {
+		return title + " Deadline: " + dueDate;
+	}
+
 	public ToDo(String title, Priority priority, String description, LocalDate dueDate) {
 		this.ID = getNexID();
 		this.title = title;
@@ -76,6 +81,25 @@ public class ToDo {
 
 	public int getID() {
 		return ID;
+	}
+
+	@Override
+	public int compareTo(ToDo o) {
+		int compValue = this.getTitle().compareTo(o.getTitle());
+		if(compValue  == 0)
+			return 0;
+			else
+				if (compValue < 0)
+					return -1;
+				else
+					return 1;
+	}
+	
+	public boolean equals(ToDo o) {
+		if(this.ID == o.getID()) 
+			return true;
+		else 
+			return false;
 	}
 
 }

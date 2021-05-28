@@ -60,10 +60,17 @@ public class Client_Controller {
 		String titel = view.txtTitle.getText();
 		Priority priority = view.chbPriority.getSelectionModel().getSelectedItem();
 		String description = view.txtaDescription.getText();
-		LocalDate date = view.dpDueDate.getValue();
-		String dueDateString = date.format(model.LocalFormatter);
-		LocalDate dueDate = LocalDate.parse(dueDateString);
+		LocalDate dueDate = view.dpDueDate.getValue();
 		
+		ToDo toDo = model.createToDo(titel, priority, description, dueDate);
+		model.treeToDoList.add(toDo);
+		view.myList.getItems().clear();
+		for(ToDo t : model.treeToDoList) {
+			view.myList.getItems().add(t);
+			
+			view.changeMainView();
+		}
+	
 		
 	}
 	
