@@ -63,14 +63,24 @@ public class Client_Controller {
 		LocalDate dueDate = view.dpDueDate.getValue();
 		
 		ToDo toDo = model.createToDo(titel, priority, description, dueDate);
-		model.treeToDoList.add(toDo);
-		view.myList.getItems().clear();
-		for(ToDo t : model.treeToDoList) {
-			view.myList.getItems().add(t);
-			
-			view.changeMainView();
+		model.myTreeToDoList.add(toDo);
+		if (view.cbShare.isSelected()) {
+			model.ourToDoList.add(toDo);
 		}
 	
+		view.myList.getItems().clear();
+		for(ToDo t : model.myTreeToDoList) {
+			view.myList.getItems().add(t);
+			
+		}
+		
+		view.ourList.getItems().clear();
+		for(ToDo t : model.ourToDoList) {
+			view.ourList.getItems().add(t);
+		
+		}
+	
+		view.changeMainView();
 		
 	}
 	

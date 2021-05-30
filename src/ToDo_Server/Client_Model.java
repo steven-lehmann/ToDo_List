@@ -10,7 +10,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Client_Model {
 	
-	protected TreeSet<ToDo> treeToDoList = new TreeSet<ToDo>();
+	protected TreeSet<ToDo> myTreeToDoList = new TreeSet<ToDo>();
+	protected TreeSet<ToDo> ourToDoList = new TreeSet<ToDo>();
 
 protected SimpleStringProperty newestMessage = new SimpleStringProperty();
 protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
