@@ -1,8 +1,10 @@
 package ToDo_Server;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javafx.event.Event;
+import javafx.scene.input.MouseEvent;
 
 public class Client_Controller {
 	
@@ -47,6 +49,14 @@ public class Client_Controller {
 
 		view.btSave.setOnAction(this::saveNewToDo);
 		
+		view.myList.setOnMouseClicked(this::showToDo);
+		
+		view.ourList.setOnMouseClicked(this::showOurToDo);
+		
+		view.btOurToDo2.setOnAction(this::changeViewOurToDOs);
+		
+		view.btDelete.setOnAction(this::deleteToDo);
+		
 		
 		
 	//	view.btnSend.setOnAction( event -> model.sendMessage(view.txtChatMessage.getText()));
@@ -56,6 +66,73 @@ public class Client_Controller {
 
 		
 	}
+	
+	private void showToDo(MouseEvent mouseevent1) {
+		view.changeViewCreateToDOs();
+		// disable
+		ToDo toDo = (ToDo) view.myList.getSelectionModel().getSelectedItem();
+		this.updateView(toDo);
+		
+	}
+	
+	private void showOurToDo(MouseEvent mouseevent1) {
+		view.changeViewCreateToDOs();
+		// disable
+		ToDo toDo = (ToDo) view.ourList.getSelectionModel().getSelectedItem();
+		this.updateView(toDo);
+		
+	}
+	
+	private void deleteToDo(Event e) {
+		int id = Integer.parseInt(view.txtID.getText());
+		ToDo toDo = model.getSelectedToDo(id);
+		model.myTreeToDoList.remove(toDo);
+		if(toDo.getSharedCheck())
+			model.ourToDoList.remove(toDo);
+		this.updateView(null);
+		this.updateAllLists();
+		
+	}
+	
+	private void updateAllLists() {
+		view.myList.getItems().clear();
+		view.ourList.getItems().clear();
+		for(ToDo t : model.myTreeToDoList) {
+			view.myList.getItems().add(t);
+		}
+		for(ToDo t : model.ourToDoList) {
+			view.ourList.getItems().add(t);
+		}
+		
+	}
+
+	private void updateView(ToDo toDo) {
+		if (toDo != null) {
+			view.txtTitle.setText(toDo.getTitle());
+			view.txtaDescription.setText(toDo.getDescription());
+			view.chbPriority.getSelectionModel().select(toDo.getPriority());
+			view.dpDueDate.setValue(toDo.getDueDate());
+			if(toDo.getSharedCheck()) {
+				view.cbShare.setSelected(true);
+			} else {
+				view.cbShare.setSelected(false);
+			}
+			view.txtID.setText(String.valueOf(toDo.getID()));
+			//erstellt von
+			
+		} else {
+			view.txtTitle.setText("");
+			view.txtaDescription.setText("");
+			view.chbPriority.getSelectionModel().select(null);
+			view.dpDueDate.setValue(null);
+			view.cbShare.setSelected(false);
+			view.txtID.setText("");
+		}
+		
+	}
+	
+	
+
 	private void saveNewToDo(Event e) {
 		String titel = view.txtTitle.getText();
 		Priority priority = view.chbPriority.getSelectionModel().getSelectedItem();
@@ -66,18 +143,17 @@ public class Client_Controller {
 		model.myTreeToDoList.add(toDo);
 		if (view.cbShare.isSelected()) {
 			model.ourToDoList.add(toDo);
+			toDo.setSharedCheck(true);
 		}
 	
 		view.myList.getItems().clear();
 		for(ToDo t : model.myTreeToDoList) {
 			view.myList.getItems().add(t);
-			
 		}
 		
 		view.ourList.getItems().clear();
 		for(ToDo t : model.ourToDoList) {
 			view.ourList.getItems().add(t);
-		
 		}
 	
 		view.changeMainView();

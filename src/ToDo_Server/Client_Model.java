@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
+import Contacts.appClasses.Contact;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client_Model {
@@ -41,6 +42,16 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		ToDo toDo = new ToDo(titel, priority, description, dueDate);
 		return toDo;
 		
+	}
+
+	public ToDo getSelectedToDo(int id) {
+		ToDo toDo = null;
+		for(ToDo t : myTreeToDoList) {
+			if(t.getID() == id) {
+				toDo = t;
+			}
+		}
+		return toDo;
 	}
 
 }

@@ -2,7 +2,7 @@ package ToDo_Server;
 
 public enum Priority {
 	
-	Low, Medium, Hight;
+	Low, Medium, High;
 	
 	public boolean contains(String searchString) {
 		return (this.name().contains(searchString));

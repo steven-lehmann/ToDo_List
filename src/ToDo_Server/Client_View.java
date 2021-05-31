@@ -44,10 +44,10 @@ public class Client_View {
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPOURVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNROURVIEW = "50002"; 
 	
-	protected Button btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btOurToDo,
+	protected Button btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btOurToDo, btOurToDo2,
 		btMyToDo, btLogoutOurView, btHome, btSave, btDelete, btCreateToDo;
 	
-	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator;
+	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator, txtID;
 	
 	protected TextArea txtaDescription;
 	
@@ -195,15 +195,16 @@ public class Client_View {
 		this.bottombarToDo = new ToolBar();
 		
 		this.btHome = new Button("Home");
+		this.btOurToDo2 = new Button("Zurück zu \"unsere ToDo's\"");
 		this.btSave = new Button("Speichern");
-		this.btDelete = new Button("Löschen");
+		this.btDelete = new Button("Erledigt/Löschen");
 		
 		this.lbTitle = new Label("Titel");
 		this.lbDescription = new Label("Beschreibung");
 		this.lbDueDate = new Label("Fälligkeitsdatum");
 		this.lbShare = new Label("ToDo teilen");
 		this.lbCreator = new Label("Erstellt von");
-		this.lbCreateDate = new Label("Erstellt am");
+		//this.lbCreateDate = new Label("Erstellt am");
 		this.lbPriority = new Label("Priorität");
 		
 		this.txtTitle = new TextField();
@@ -222,9 +223,12 @@ public class Client_View {
 		
 		dpDueDate.setEditable(false);
 		
+		this.txtID = new TextField();
 		this.cbShare = new CheckBox();
 		this.txtCreator = new TextField();
-		this.dpCreateDate = new DatePicker();
+		this.txtCreator.setEditable(false);
+		/*this.dpCreateDate = new DatePicker();
+		this.dpCreateDate.setEditable(false);*/
 		this.chbPriority = new ChoiceBox <Priority>();
 		this.chbPriority.getItems().addAll(Priority.values());
 		
@@ -240,11 +244,12 @@ public class Client_View {
 		this.centerToDo.add(this.cbShare, 1, 4);
 		this.centerToDo.add(this.lbCreator, 0, 5);
 		this.centerToDo.add(this.txtCreator, 1, 5);
-		this.centerToDo.add(this.lbCreateDate, 0, 6);
-		this.centerToDo.add(this.dpCreateDate, 1, 6);
+		this.centerToDo.add(this.txtID, 2, 7);
+		//this.centerToDo.add(this.lbCreateDate, 0, 6);
+		//this.centerToDo.add(this.dpCreateDate, 1, 6);
 		
 		
-		this.toolbarToDo.getItems().addAll(this.btHome, this.btSave);
+		this.toolbarToDo.getItems().addAll(this.btHome, this.btOurToDo2, this.btSave);
 		this.bottombarToDo.getItems().addAll(this.btDelete);
 		
 		this.toDoView.setTop(this.toolbarToDo);
