@@ -1,0 +1,19 @@
+.centerRegistration{
+	-fx-hgap: 10;
+	-fx-vgap: 20;
+	-fx-padding: 10;
+	-fx-alignment: top-left;
+	-fx-font-size: 14;
+}
+
+.lbRegistration{
+	-fx-font-size: 28;
+}
+
+.lbUserRegistration{
+
+}
+
+.btCreateAccount{
+	
+}

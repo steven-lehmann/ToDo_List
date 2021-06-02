@@ -81,22 +81,27 @@ public class Client_View {
 		
 		this.registrationView = new BorderPane();
 		this.centerRegistration = new GridPane();
+		this.centerRegistration.getStyleClass().add("centerRegistration");
 		
 		this.lbRegistration = new Label("Registration");
+		this.lbRegistration.getStyleClass().add("lbRegistration");
 		this.lbUsername = new Label("Benutzername");
+		this.lbUsername.getStyleClass().add("lbUserRegistration");
 		this.lbUserPassword = new Label("Passwort");
+		this.lbUserPassword.getStyleClass().add("lbUserRegistration");
 		
 		this.txtUsername = new TextField();
 		this.txtpPassword = new PasswordField();
 		
 		this.btCreateAccount = new Button("Account erstellen");
+		this.btCreateAccount.getStyleClass().add("btCreateAccount");
 		
 		this.centerRegistration.add(this.lbRegistration, 0, 0);
 		this.centerRegistration.add(this.lbUsername, 0, 1);
 		this.centerRegistration.add(this.txtUsername, 1, 1);
 		this.centerRegistration.add(this.lbUserPassword, 0, 2);
 		this.centerRegistration.add(this.txtpPassword, 1, 2);
-		this.centerRegistration.add(this.btCreateAccount, 2, 3);
+		this.centerRegistration.add(this.btCreateAccount, 1, 4);
 		
 		this.registrationView.setCenter(this.centerRegistration);
 		

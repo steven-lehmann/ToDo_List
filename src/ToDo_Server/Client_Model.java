@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import Contacts.appClasses.Contact;
+//import Contacts.appClasses.Contact;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client_Model {
