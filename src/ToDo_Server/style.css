@@ -1,19 +1,61 @@
+.registrationView{
+	-fx-background-color: #f8f8ff;
+}
+
 .centerRegistration{
-	-fx-hgap: 10;
-	-fx-vgap: 20;
+	-fx-hgap: 5;
+	-fx-vgap: 25;
 	-fx-padding: 10;
-	-fx-alignment: top-left;
+	-fx-alignment: top-center;
 	-fx-font-size: 14;
 }
 
 .lbRegistration{
-	-fx-font-size: 28;
+	-fx-font-size: 34;
 }
 
 .lbUserRegistration{
-
+	-fx-font-size: 18;
 }
 
 .btCreateAccount{
+	-fx-padding: 10;
+	-fx-aligment: center;
+	-fx-min-width: 400;
+}
+
+.loginView{
+	-fx-background-color: #f8f8ff;
+}
+
+.centerLogin{
+	-fx-hgap: 5;
+	-fx-vgap: 25;
+	-fx-padding: 10;
+	-fx-alignment: top-center;
+	-fx-font-size: 14;
+}
+
+.lbLogin{
+	-fx-font-size: 34;
+}
+
+.lbUserLogin{
+	-fx-min-width: 130;
+}
+
+.lbNoAccount{
 	
+}
+
+.btLoginUser{
+	-fx-padding: 8;
+	-fx-aligment: center;
+	-fx-min-width: 400;
+}
+
+.btRegistration{
+	-fx-padding: 8;
+	-fx-aligment: center;
+	-fx-min-width: 400;
 }
