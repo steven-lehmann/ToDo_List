@@ -80,6 +80,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 			m.send(socket);
 			Message msg = Message.receive(socket);
 			String result = msg.toString();
+			logger.info(result);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
