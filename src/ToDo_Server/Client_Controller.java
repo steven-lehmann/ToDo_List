@@ -180,7 +180,9 @@ public class Client_Controller {
 		view.backToLogin();
 	}
 	private void createAccount (Event e) {
-		//ToDo Einen neuen Benutzer erstellen
+		String name = view.txtUsername.getText();
+		String password = view.txtpPassword.getText();
+		model.createAccount(name, password);
 		view.chageViewLogin(); 
 	}
 }

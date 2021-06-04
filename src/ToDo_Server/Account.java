@@ -1,28 +1,40 @@
 package ToDo_Server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Account {
+public class Account implements Serializable  {
 	
-	private String eMail;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1;
 	private String password;
-	private ArrayList<ToDo>  toDoList;
+	private ArrayList<Integer>  toDoList;
+	private final String username;
 	
-	public Account(String eMail, String password, ArrayList<ToDo> toDoList) {
-		this.eMail = eMail;
+	private static final ArrayList<Account> accounts = new ArrayList<>();
+	
+	public Account(String username, String password) {
+		this.username = username;
 		this.password = password;
-		this.toDoList = toDoList;
-		
-		
+		this.toDoList = new ArrayList<Integer>();
+	}
+	
+	/**
+	 * Find and return an existing account
+	 */
+	public static Account exists(String username) {
+		synchronized (accounts) {
+			for (Account account : accounts) {
+				if (account.username.equals(username)) return account;
+			}
+		}
+		return null;
 	}
 
-
-	public String geteMail() {
-		return eMail;
-	}
-
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
+	public String getUsername() {
+		return username;
 	}
 
 	public String getPassword() {
@@ -33,17 +45,27 @@ public class Account {
 		this.password = password;
 	}
 
-	public ArrayList<ToDo> getToDoList() {
+	public ArrayList<Integer> getToDoList() {
 		return toDoList;
 	}
 
-	public void setToDoList(ArrayList<ToDo> toDoList) {
+	public void setToDoList(ArrayList<Integer> toDoList) {
 		this.toDoList = toDoList;
 	}
 	
 	@Override
 	public String toString() {
-		return "Account [eMail=" + eMail + "]";
+		return "Account [username=" + username + "]";
 	}
+
+
+
+
+	public static void add(Account newAccount) {
+		synchronized (accounts) {
+			accounts.add(newAccount);
+		}
+	}
+
 
 }
