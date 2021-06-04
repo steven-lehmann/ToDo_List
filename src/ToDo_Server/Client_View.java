@@ -39,7 +39,7 @@ public class Client_View {
 	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin, lbIpAddress, lbPort,
 		lbPortMyView, lbPortNrMyView, lbPortOurView, lbPortNrOurView, lbServerMyView, lbServerIPMyView,
 			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, 
-			lbCreateDate, lbPriority;
+			lbCreateDate, lbPriority, lbNoAccount;
 	
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPOURVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNROURVIEW = "50002"; 
@@ -65,7 +65,7 @@ public class Client_View {
 		
 		
 		//Main View für Anmeldung oder Registration
-		
+		/*
 		this.root = new BorderPane();
 		this.centerMainLogin = new HBox();
 		
@@ -75,28 +75,34 @@ public class Client_View {
 		this.centerMainLogin.getChildren().addAll(this.btLogin, this.btRegistration);
 		
 		this.root.setCenter(this.centerMainLogin);
-		
+		*/
 		
 		//View für Registrierung
 		
 		this.registrationView = new BorderPane();
+		this.registrationView.getStyleClass().add("registrationView");
 		this.centerRegistration = new GridPane();
+		this.centerRegistration.getStyleClass().add("centerRegistration");
 		
 		this.lbRegistration = new Label("Registration");
+		this.lbRegistration.getStyleClass().add("lbRegistration");
 		this.lbUsername = new Label("Benutzername");
+		this.lbUsername.getStyleClass().add("lbUserRegistration");
 		this.lbUserPassword = new Label("Passwort");
+		this.lbUserPassword.getStyleClass().add("lbUserRegistration");
 		
 		this.txtUsername = new TextField();
 		this.txtpPassword = new PasswordField();
 		
 		this.btCreateAccount = new Button("Account erstellen");
+		this.btCreateAccount.getStyleClass().add("btCreateAccount");
 		
 		this.centerRegistration.add(this.lbRegistration, 0, 0);
 		this.centerRegistration.add(this.lbUsername, 0, 1);
 		this.centerRegistration.add(this.txtUsername, 1, 1);
 		this.centerRegistration.add(this.lbUserPassword, 0, 2);
 		this.centerRegistration.add(this.txtpPassword, 1, 2);
-		this.centerRegistration.add(this.btCreateAccount, 2, 3);
+		this.centerRegistration.add(this.btCreateAccount, 0, 3, 2, 1);
 		
 		this.registrationView.setCenter(this.centerRegistration);
 		
@@ -104,13 +110,22 @@ public class Client_View {
 		//View für Anmeldung
 		
 		this.loginView = new BorderPane();
+		this.loginView.getStyleClass().add("loginView");
 		this.centerLogin = new GridPane();
+		this.centerLogin.getStyleClass().add("centerLogin");
 		
 		this.lbLogin = new Label("Login");
+		this.lbLogin.getStyleClass().add("lbLogin");
 		this.lbUsernameLogin = new Label("Benutzername");
+		this.lbUsernameLogin.getStyleClass().add("lbUserLogin");
 		this.lbUserPasswordLogin = new Label("Passwort");
+		this.lbUserPasswordLogin.getStyleClass().add("lbUserLogin");
 		this.lbIpAddress = new Label ("IP address");
+		this.lbIpAddress.getStyleClass().add("lbUserLogin");
 		this.lbPort = new Label ("Port");
+		this.lbPort.getStyleClass().add("lbUserLogin");
+		this.lbNoAccount = new Label("Noch keinen Account? ");
+		this.lbNoAccount.getStyleClass().add("lbNoAccount");
 		
 		this.txtUsernameLogin = new TextField();
 		this.txtpPasswordLogin = new PasswordField();
@@ -118,6 +133,9 @@ public class Client_View {
 		this.txtPort = new TextField();
 		
 		this.btLoginUser = new Button("Login");
+		this.btLoginUser.getStyleClass().add("btLoginUser");
+		this.btRegistration = new Button("Registrieren");
+		this.btRegistration.getStyleClass().add("btRegistration");
 		
 		this.centerLogin.add(this.lbLogin, 0, 0);
 		this.centerLogin.add(this.lbUsernameLogin, 0, 1);
@@ -128,8 +146,9 @@ public class Client_View {
 		this.centerLogin.add(this.txtIpAddress, 1, 3);
 		this.centerLogin.add(this.lbPort, 0, 4);
 		this.centerLogin.add(this.txtPort, 1, 4);
-		this.centerLogin.add(this.btLoginUser, 0, 5);
-		this.centerLogin.add(this.btRegistration, 1, 5);
+		this.centerLogin.add(this.btLoginUser, 0, 5, 2, 1);
+		this.centerLogin.add(this.lbNoAccount, 0, 7);
+		this.centerLogin.add(this.btRegistration, 0, 8, 2, 1);
 		
 		this.loginView.setCenter(this.centerLogin);
 		
@@ -258,27 +277,27 @@ public class Client_View {
 		
 		
 		//Set Scene
-		sceneLogin = new Scene(loginView, 800, 550);
+		sceneLogin = new Scene(loginView, 700, 550);
 		sceneLogin.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(sceneLogin);
 		stage.setTitle("ToDo App");
 		
-		sceneRegistration = new Scene(registrationView, 800, 550);
+		sceneRegistration = new Scene(registrationView, 700, 550);
 		sceneRegistration.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(sceneRegistration);
 		stage.setTitle("ToDo App");
 		
-		sceneMainView = new Scene(myToDoView, 800, 550);
+		sceneMainView = new Scene(myToDoView, 700, 550);
 		sceneMainView.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(sceneMainView);
 		stage.setTitle("ToDo App");
 		
-		sceneSharedToDos = new Scene(ourToDoView, 800, 550);
+		sceneSharedToDos = new Scene(ourToDoView, 700, 550);
 		sceneSharedToDos.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(sceneSharedToDos);
 		stage.setTitle("ToDo App");
 		
-		sceneCreateToDo = new Scene(toDoView, 800, 550);
+		sceneCreateToDo = new Scene(toDoView, 700, 550);
 		sceneCreateToDo.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setScene(sceneCreateToDo);
 		stage.setTitle("ToDo App");
