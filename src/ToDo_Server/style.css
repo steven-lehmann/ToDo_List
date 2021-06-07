@@ -1,3 +1,14 @@
+.rootView{
+	-fx-background-color: #f8f8ff;
+}
+
+.centerServerConnection{
+	-fx-hgap: 5;
+	-fx-vgap: 25;
+	-fx-padding: 10;
+	-fx-font-size: 14;
+}
+
 .registrationView{
 	-fx-background-color: #f8f8ff;
 }
@@ -8,6 +19,16 @@
 	-fx-padding: 10;
 	-fx-alignment: top-center;
 	-fx-font-size: 14;
+}
+
+.lbServerConnection{
+	-fx-font-size: 18;
+}
+
+.btServerConnection{
+	-fx-padding: 10;
+	-fx-aligment: center;
+	-fx-min-width: 400;
 }
 
 .lbRegistration{
