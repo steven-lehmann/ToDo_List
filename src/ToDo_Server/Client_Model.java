@@ -29,6 +29,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		logger.info("Connect");
 		try {
 			socket = new Socket(ipAddress, Port);
+			
 		} catch (Exception e) {
 			logger.warning(e.toString());
 		}

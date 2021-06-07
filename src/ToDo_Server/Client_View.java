@@ -64,8 +64,8 @@ public class Client_View {
 		this.stage = stage;
 		
 		
-		//Main View für Anmeldung oder Registration
-		/*
+		// Main View für Anmeldung oder Registration
+		
 		this.root = new BorderPane();
 		this.centerMainLogin = new HBox();
 		
@@ -75,7 +75,7 @@ public class Client_View {
 		this.centerMainLogin.getChildren().addAll(this.btLogin, this.btRegistration);
 		
 		this.root.setCenter(this.centerMainLogin);
-		*/
+	
 		
 		//View für Registrierung
 		

@@ -58,9 +58,6 @@ public class Account implements Serializable  {
 		return "Account [username=" + username + "]";
 	}
 
-
-
-
 	public static void add(Account newAccount) {
 		synchronized (accounts) {
 			accounts.add(newAccount);

@@ -24,8 +24,9 @@ public class Client_Controller {
 			String name = view.txtUsername.getText();
 			String password = view.txtpPassword.getText();
 			model.connect(ipAddress, port, name, password);
-			model.createAccount(name, password);
 			view.changeMainView();
+			//model.createAccount(name, password);
+			
 			// Überprüfung der Eingaben mit einer Methode ergänzen
 			
 		});

@@ -27,8 +27,8 @@ public class Server {
 					while (!stop) {
 						try {
 							Socket socket = listener.accept();
-							logger.info("Listener triggered");
 							Client client = new Client(socket);
+							logger.info("Client is connected");
 							clients.add(client);
 						} catch (Exception e) {
 							logger.info(e.toString());
