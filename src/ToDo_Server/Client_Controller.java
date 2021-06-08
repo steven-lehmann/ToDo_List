@@ -18,18 +18,17 @@ public class Client_Controller {
 	//	view.btRegistration.setOnAction(this::changeViewRegistration);
 		
 		
-		view.btLoginUser.setOnAction(event -> {
+		
+			
+		view.btServerConnect.setOnAction(event -> {
 			String ipAddress = view.txtIpAddress.getText();
 			int port = Integer.parseInt(view.txtPort.getText());
-			String name = view.txtUsername.getText();
-			String password = view.txtpPassword.getText();
-			model.connect(ipAddress, port, name, password);
-			view.changeMainView();
-			//model.createAccount(name, password);
-			
+			model.connect(ipAddress, port);
+			view.backToLogin();
+		});
 			// Überprüfung der Eingaben mit einer Methode ergänzen
 			
-		});
+	
 		
 		view.stage.setOnCloseRequest( event -> model.disconnect() );
 		

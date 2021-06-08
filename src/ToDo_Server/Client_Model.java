@@ -25,15 +25,16 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	private Logger logger = Logger.getLogger("");
 	private Socket socket;
 	
-	public void connect(String ipAddress, int Port, String name, String password) {
+	public void connect(String ipAddress, int port) {
 		logger.info("Connect");
 		try {
-			socket = new Socket(ipAddress, Port);
+			socket = new Socket(ipAddress, port);
 			
 		} catch (Exception e) {
 			logger.warning(e.toString());
 		}
 	}
+	
 	
 	public void disconnect() {
 		logger.info("Disconnect");
@@ -47,14 +48,14 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	
 	
 	
-	public void sendMessage(String message) {
+	/* public void sendMessage(String message) {
 		logger.info("Send message");
-	}
+	} */
 
-	public String receiveMessage() {
+	/* public String receiveMessage() {
 		logger.info("Receive message");
 		return newestMessage.get();
-	}
+	} */
 
 	public ToDo createToDo(String titel, Priority priority, String description, LocalDate dueDate) {
 		ToDo toDo = new ToDo(titel, priority, description, dueDate);
@@ -73,10 +74,11 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 	public void createAccount(String name, String password) {
-		String[] input = new String[3];
-		 input[1] = name;
-		 input[2] = password;
+		String[] input = new String[2];
+		 input[0] = name;
+		 input[1] = password;
 		Message m = new CreateLogin(input);
+	
 		try {
 			m.send(socket);
 			Message msg = Message.receive(socket);
@@ -85,9 +87,11 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		
 		
 	}
+
+	
 
 }

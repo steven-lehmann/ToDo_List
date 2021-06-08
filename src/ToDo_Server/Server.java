@@ -3,32 +3,37 @@ package ToDo_Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Logger;
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import message.Message;
 
 public class Server {
 	protected static ObservableList<Client> clients = FXCollections.observableArrayList();
+	//protected static ArrayList<Client> clients2 = new ArrayList<Client>();
 	
 	private static final Logger logger = Logger.getLogger("");
 	private volatile static boolean stop = false;
-	private static ServerSocket listener;
+	private static ServerSocket server;
 	private static int port = 50002;
 	private static String decision;
 	
 	public static void startServer(int Port) {
 		logger.info("Start server");
 		try {
-			listener = new ServerSocket(port, 10, null);
+			server = new ServerSocket(port, 10, null);
 			Runnable r = new Runnable() {
 				@Override
 				public void run() {
 					while (!stop) {
 						try {
-							Socket socket = listener.accept();
+							Socket socket = server.accept();
 							Client client = new Client(socket);
-							logger.info("Client is connected");
+							System.out.println("Verbindung zum Server hergestellt");
 							clients.add(client);
 						} catch (Exception e) {
 							logger.info(e.toString());
@@ -49,9 +54,9 @@ public class Server {
 		
 		logger.info("Stop server");
 		stop = true;
-		if (listener != null) {
+		if (server != null) {
 			try {
-				listener.close();
+				server.close();
 			} catch (IOException e) {
 				// Uninteresting
 			}
@@ -73,6 +78,13 @@ public class Server {
 			stopServer(); 
 		} */
 		
+	}
+	
+	public void broadcast(Message outMsg) {
+		logger.info("Broadcasting message to clients");
+		for (Client c : clients) {
+			c.send(outMsg);
+		}
 	}
 
 }

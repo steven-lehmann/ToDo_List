@@ -86,7 +86,7 @@ public class Client_View {
 		this.centerServerConnection.add(this.txtPort, 1, 1);
 		this.centerServerConnection.add(this.btServerConnect, 0, 2, 2, 1);
 		
-		this.root.getChildren().add(this.centerServerConnection);
+		this.root.setCenter(this.centerServerConnection);
 		
 		//View für Registrierung
 		

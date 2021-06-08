@@ -55,6 +55,7 @@ public class Client implements Sendable {
 		Thread t = new Thread(r);
 		t.start();
 		logger.info("New client created: " + this.getName());
+	
 	}
 
 	public void stop() {
@@ -70,10 +71,6 @@ public class Client implements Sendable {
 		return name + ": " + socket.toString();
 	}
 
-	public void send(Result result) {
-		// Auto-generated method stub
-		
-	}
 	
 	/**
 	 * Send a message to this client. In case of an exception, log the client out.
@@ -95,6 +92,10 @@ public class Client implements Sendable {
 		String name = null;
 		if (account != null) name = account.getUsername();
 		return name;
+	}
+
+	public String getToken() {
+		return token;
 	}
 
 	
