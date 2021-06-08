@@ -15,8 +15,8 @@ public class CreateLogin extends Message {
 
 		public CreateLogin(String[] data) {
 			super(data);
-			this.username = data[0];
-			this.password = data[1];
+			this.username = data[1];
+			this.password = data[2];
 		}
 
 		/**
@@ -30,7 +30,6 @@ public class CreateLogin extends Message {
 				if (password != null && password.length() >= 3) { // lax password requirements
 					if (Account.exists(username) == null) {
 						Account newAccount = new Account(username, password);
-						System.out.println("Account wurde erstellt");
 						Account.add(newAccount);
 						result = true;
 					}

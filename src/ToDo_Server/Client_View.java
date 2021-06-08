@@ -365,7 +365,7 @@ public class Client_View {
 	}
 
 
-	public void changeVieMyToDOs() {
+	public void changeViewMyToDOs() {
 		stage.setScene(sceneMainView);
 		stage.show();
 		

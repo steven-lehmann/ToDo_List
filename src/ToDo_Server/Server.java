@@ -13,7 +13,6 @@ import javafx.collections.ObservableList;
 import message.Message;
 
 public class Server {
-	protected static ObservableList<Client> clients = FXCollections.observableArrayList();
 	//protected static ArrayList<Client> clients2 = new ArrayList<Client>();
 	
 	private static final Logger logger = Logger.getLogger("");
@@ -34,7 +33,7 @@ public class Server {
 							Socket socket = server.accept();
 							Client client = new Client(socket);
 							System.out.println("Verbindung zum Server hergestellt");
-							clients.add(client);
+							Client.add(client);
 						} catch (Exception e) {
 							logger.info(e.toString());
 						}
@@ -48,9 +47,9 @@ public class Server {
 		}
 	}
 	
-	public static void stopServer() {
+	/* public static void stopServer() {
 		logger.info("Stop server");
-		for (Client c : clients) c.stop();
+		for (Client c : ) c.stop();
 		
 		logger.info("Stop server");
 		stop = true;
@@ -61,12 +60,9 @@ public class Server {
 				// Uninteresting
 			}
 		}
-	}
+	} */
 	
-	public ObservableList<Client> getClientList() {
-		logger.info("Get client list");
-		return clients;
-	}
+
 
 	public static void main(String[] args) {
 		startServer(port);
@@ -80,11 +76,6 @@ public class Server {
 		
 	}
 	
-	public void broadcast(Message outMsg) {
-		logger.info("Broadcasting message to clients");
-		for (Client c : clients) {
-			c.send(outMsg);
-		}
-	}
+
 
 }

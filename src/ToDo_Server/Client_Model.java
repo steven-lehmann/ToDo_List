@@ -1,7 +1,11 @@
 package ToDo_Server;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,8 +15,6 @@ import java.util.logging.Logger;
 
 
 import javafx.beans.property.SimpleStringProperty;
-import message.CreateLogin;
-import message.Message;
 
 public class Client_Model {
 	
@@ -24,11 +26,17 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	
 	private Logger logger = Logger.getLogger("");
 	private Socket socket;
+	private OutputStreamWriter socketOut;
+	private BufferedReader socketIn;
+
 	
 	public void connect(String ipAddress, int port) {
 		logger.info("Connect");
 		try {
 			socket = new Socket(ipAddress, port);
+			socketOut = new OutputStreamWriter(socket.getOutputStream());
+			socketIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		
 			
 		} catch (Exception e) {
 			logger.warning(e.toString());
@@ -73,25 +81,75 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		return toDo;
 	}
 
-	public void createAccount(String name, String password) {
-		String[] input = new String[2];
-		 input[0] = name;
-		 input[1] = password;
-		Message m = new CreateLogin(input);
+	public boolean createAccount(String name, String password) throws IOException {
+	boolean status = false; 
+	String line = "CreateLogin|" + name + "|" + password;
+	socketOut.write(line + "\n");
+	socketOut.flush();
+	System.out.println("Sent: " + line);
+	String msg = null;
+	try {
+	msg = socketIn.readLine();
+	System.out.println("Received: " + msg);
+	String[] parts = msg.split("\\|");
+	if(parts[1].equalsIgnoreCase("true")) {
+		status = true;
+	}
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	 return status;
 	
-		try {
-			m.send(socket);
-			Message msg = Message.receive(socket);
-			String result = msg.toString();
-			logger.info(result);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		
 	}
 
+
+	public boolean login(String userName, String password) throws IOException {
+		boolean status = false; 
+		String line = "Login|" + userName + "|" + password;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[2].equalsIgnoreCase("true")) {
+			status = true;
+		} 
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Hat nicht funktioniert");
+		
+		} 
+		return status;
+
+
+	}	
 	
+	public boolean logOut() throws IOException {
+		boolean status = false; 
+		String line = "Logout";
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 return status;
+		
+		}
+	
+
+
 
 }

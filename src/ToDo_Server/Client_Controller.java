@@ -1,9 +1,12 @@
 package ToDo_Server;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.event.Event;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 
 public class Client_Controller {
@@ -26,6 +29,7 @@ public class Client_Controller {
 			model.connect(ipAddress, port);
 			view.backToLogin();
 		});
+		
 			// Überprüfung der Eingaben mit einer Methode ergänzen
 			
 	
@@ -34,7 +38,15 @@ public class Client_Controller {
 		
 		view.btRegistration.setOnAction(this::changeViewRegistration);
 		
-		view.btCreateAccount.setOnAction(this::createAccount);
+		view.btCreateAccount.setOnAction(arg0 -> {
+			try {
+				createAccount(arg0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
 		
 		view.btOurToDo.setOnAction(this::changeViewOurToDOs);
 		
@@ -58,6 +70,25 @@ public class Client_Controller {
 		
 		view.btDelete.setOnAction(this::deleteToDo);
 		
+		view.btLoginUser.setOnAction(arg0 -> {
+			try {
+				loginClient(arg0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
+		view.btLogoutMyView.setOnAction(arg0 -> {
+			try {
+				logOut(arg0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
+		
 		
 		
 	//	view.btnSend.setOnAction( event -> model.sendMessage(view.txtChatMessage.getText()));
@@ -65,8 +96,29 @@ public class Client_Controller {
 		// model.newestMessage.addListener( (o, oldValue, newValue) -> view.txtChatArea.appendText(newValue) );
 		
 
+
 		
 	}
+	
+	private void logOut(Event e) throws IOException {
+		model.logOut();
+		view.backToLogin();
+	}
+	private void loginClient(Event e) throws IOException {
+		String userName = view.txtUsernameLogin.getText();
+		String password = view.txtpPasswordLogin.getText();
+		Boolean passwordCheck = model.login(userName, password);
+		if (passwordCheck == true) {
+		view.changeViewMyToDOs();
+		} else {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Wrong password");
+			errorAlert.setContentText("Please fill in the correct password");
+			errorAlert.showAndWait();
+		}
+		
+	}
+	
 	
 	private void showToDo(MouseEvent mouseevent1) {
 		view.changeViewCreateToDOs();
@@ -174,16 +226,16 @@ public class Client_Controller {
 	}
 	
 	private void changeVieMyToDOs(Event e) {
-		view.changeVieMyToDOs();
+		view.changeViewMyToDOs();
 	}
 	
 	private void backToLogin(Event e) {
 		view.backToLogin();
 	}
-	private void createAccount (Event e) {
+	private void createAccount (Event e) throws IOException {
 		String name = view.txtUsername.getText();
 		String password = view.txtpPassword.getText();
-		model.createAccount(name, password);
+		Boolean login = model.createAccount(name, password);
 		view.chageViewLogin(); 
 	}
 }

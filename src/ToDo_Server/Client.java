@@ -3,7 +3,9 @@ package ToDo_Server;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.logging.Logger;
+
 
 import message.Message;
 import message.Result;
@@ -16,14 +18,14 @@ public class Client implements Sendable {
 	private Instant lastUsage;
 	private String token = null;
 	private static Logger logger = Logger.getLogger("");
-	
+	private static final ArrayList<Client> clients = new ArrayList<>();
 	/**
 	 * Create a new client object, communicating over the given socket. Immediately
 	 * start a thread to receive messages from the client.
 	 */
 	public Client(Socket socket) {
 		this.socket = socket;
-		this.lastUsage = Instant.now();
+		this.setLastUsage(Instant.now());
 
 		// Create thread to read incoming messages
 		Runnable r = new Runnable() {
@@ -41,7 +43,7 @@ public class Client implements Sendable {
 							Client.this.send(new MessageError());
 						}
 
-						lastUsage = Instant.now();
+						setLastUsage(Instant.now());
 					}
 				} catch (Exception e) {
 					logger.info("Client " + Client.this.getName() + " disconnected");
@@ -79,7 +81,6 @@ public class Client implements Sendable {
 	public void send(Message msg) {
 		try {
 			msg.send(socket);
-			lastUsage = Instant.now();
 		} catch (IOException e) {
 			logger.warning("Client " + Client.this.getName() + " unreachable; logged out");
 			this.token = null;
@@ -98,5 +99,33 @@ public class Client implements Sendable {
 		return token;
 	}
 
-	
+	public Instant getLastUsage() {
+		return lastUsage;
+	}
+
+	public void setLastUsage(Instant lastUsage) {
+		this.lastUsage = lastUsage;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+		
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+		
+	}
+
+	public static void add(Client client) {
+		synchronized (clients) {
+			clients.add(client);
+		
+		}
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
 }

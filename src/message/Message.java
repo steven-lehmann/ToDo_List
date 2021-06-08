@@ -21,6 +21,14 @@ public abstract class Message {
 		this.data = data;
 	}
 	
+	public Message(String[] data, ArrayList<String> elements) {
+		this.data = new String[data.length + elements.size()];
+		for (int i = 0; i < data.length; i++)
+			this.data[i] = data[i];
+		for (int i = 0; i < elements.size(); i++)
+			this.data[i + data.length] = elements.get(i);
+	}
+	
 	/**
 	 * Perform whatever actions are required for this particular type of message.
 	 */
@@ -40,8 +48,7 @@ public abstract class Message {
 		try {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msgText = in.readLine(); // Will wait here for complete line
-			logger.info("Receiving message: " + msgText);
-
+			logger.info("Receiving message hat funktioniert: " + msgText);
 			// Break message into individual parts, and remove extra spaces
 			String[] parts = msgText.split("\\|");
 			for (int i = 0; i < parts.length; i++) {
