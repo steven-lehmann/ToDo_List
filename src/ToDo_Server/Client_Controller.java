@@ -48,15 +48,15 @@ public class Client_Controller {
 		});
 		
 		
-		view.btOurToDo.setOnAction(this::changeViewOurToDOs);
+		view.btChangePassword.setOnAction(this::changeViewPW);
 		
 		view.btCreateToDo.setOnAction(this::changeViewCreateToDOs);
 		
 		view.btLogoutMyView.setOnAction(this::backToLogin);
 		
-		view.btLogoutOurView.setOnAction(this::backToLogin);
+		//view.btLogoutOurView.setOnAction(this::backToLogin);
 		
-		view.btMyToDo.setOnAction(this::changeVieMyToDOs);
+		//view.btMyToDo.setOnAction(this::changeVieMyToDOs);
 		
 		view.btHome.setOnAction(this::changeVieMyToDOs);
 
@@ -71,9 +71,9 @@ public class Client_Controller {
 		
 		view.myList.setOnMouseClicked(this::showToDo);
 		
-		view.ourList.setOnMouseClicked(this::showOurToDo);
+		//view.ourList.setOnMouseClicked(this::showOurToDo);
 		
-		view.btOurToDo2.setOnAction(this::changeViewOurToDOs);
+		//view.btOurToDo2.setOnAction(this::changeViewOurToDOs);
 		
 		view.btDelete.setOnAction(this::deleteToDo);
 		
@@ -135,6 +135,7 @@ public class Client_Controller {
 		
 	}
 	
+	/*
 	private void showOurToDo(MouseEvent mouseevent1) {
 		view.changeViewCreateToDOs();
 		// disable
@@ -142,7 +143,7 @@ public class Client_Controller {
 		this.updateView(toDo);
 		
 	}
-	
+	*/
 	private void deleteToDo(Event e) {
 		int id = Integer.parseInt(view.txtID.getText());
 		ToDo toDo = model.getSelectedToDo(id);
@@ -154,12 +155,12 @@ public class Client_Controller {
 	
 	private void updateAllLists() {
 		view.myList.getItems().clear();
-		view.ourList.getItems().clear();
+		//view.ourList.getItems().clear();
 		for(ToDo t : model.myTreeToDoList) {
 			view.myList.getItems().add(t);
 		}
 		for(ToDo t : model.ourToDoList) {
-			view.ourList.getItems().add(t);
+			//view.ourList.getItems().add(t);
 		}
 		
 	}
@@ -170,7 +171,13 @@ public class Client_Controller {
 			view.txtaDescription.setText(toDo.getDescription());
 			view.chbPriority.getSelectionModel().select(toDo.getPriority());
 			view.dpDueDate.setValue(toDo.getDueDate());
-			
+
+			/*if(toDo.getSharedCheck()) {
+				view.cbShare.setSelected(true);
+			} else {
+				view.cbShare.setSelected(false);
+			}*/
+
 			view.txtID.setText(String.valueOf(toDo.getID()));
 			//erstellt von
 			
@@ -179,7 +186,7 @@ public class Client_Controller {
 			view.txtaDescription.setText("");
 			view.chbPriority.getSelectionModel().select(null);
 			view.dpDueDate.setValue(null);
-			view.cbShare.setSelected(false);
+			//view.cbShare.setSelected(false);
 			view.txtID.setText("");
 		}
 		
@@ -198,19 +205,20 @@ public class Client_Controller {
 		
 	/*	ToDo toDo = model.createToDo(titel, priority, description, dueDate);
 		model.myTreeToDoList.add(toDo);
-		if (view.cbShare.isSelected()) {
+		/*if (view.cbShare.isSelected()) {
 			model.ourToDoList.add(toDo);
 			toDo.setSharedCheck(true);
-		}
+		}*/
 	
 		view.myList.getItems().clear();
 		for(ToDo t : model.myTreeToDoList) {
 			view.myList.getItems().add(t);
 		}
 		
-		view.ourList.getItems().clear();
+		/*view.ourList.getItems().clear();
 		for(ToDo t : model.ourToDoList) {
 			view.ourList.getItems().add(t);
+<<<<<<< HEAD
 		}
 		*/
 	
@@ -222,8 +230,8 @@ public class Client_Controller {
 		view.changeViewRegistration();
 	}
 	
-	private void changeViewOurToDOs(Event e) {
-		view.changeViewOurToDOs();
+	private void changeViewPW(Event e) {
+		view.changeViewPW();
 	}
 	
 	private void changeViewCreateToDOs(Event e) {

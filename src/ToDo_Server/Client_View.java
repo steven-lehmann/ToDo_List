@@ -24,34 +24,33 @@ public class Client_View {
 	final private Client_Model model;
 	protected static Stage stage;
 	
-	protected Scene sceneRoot, sceneLogin, sceneRegistration, sceneMainView, sceneSharedToDos, sceneCreateToDo;
+	protected Scene sceneRoot, sceneLogin, sceneRegistration, sceneMainView, sceneChangePW,
+		sceneCreateToDo;
 	
-	protected BorderPane root, registrationView, loginView, myToDoView, ourToDoView, toDoView;
+	protected BorderPane root, registrationView, loginView, myToDoView, changePWView, toDoView;
 		
-	protected GridPane centerServerConnection, centerRegistration, centerLogin, centerToDo;
+	protected GridPane centerServerConnection, centerRegistration, centerLogin, centerToDo, centerChangePW;
 	
-	protected ListView myList, ourList;
+	protected ListView myList;
 	
-	protected ToolBar toolbarMyView, toolbarOurView, bottombarMyView, bottombarOurView, toolbarToDo, bottombarToDo;
+	protected ToolBar toolbarMyView, toolbarPWView, bottombarMyView, bottombarChangePW, toolbarToDo, bottombarToDo;
 	
 	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin, lbIpAddress, lbPort,
 		lbPortMyView, lbPortNrMyView, lbPortOurView, lbPortNrOurView, lbServerMyView, lbServerIPMyView,
 			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, 
-			lbCreateDate, lbPriority, lbNoAccount;
+			lbCreateDate, lbPriority, lbNoAccount, lbChangePW, lbNewPW;
 	
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPOURVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNROURVIEW = "50002"; 
 	
-	protected Button btServerConnect, btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btOurToDo, btOurToDo2,
-		btMyToDo, btLogoutOurView, btHome, btSave, btDelete, btCreateToDo;
+	protected Button btServerConnect, btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btChange, btBack,
+		btMyToDo, btBackToDo, btHome, btSave, btDelete, btCreateToDo;
 	
-	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator, txtID;
+	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator, txtID, txtNewPW;
 	
 	protected TextArea txtaDescription;
 	
 	protected DatePicker dpDueDate, dpCreateDate;
-	
-	protected CheckBox cbShare;
 	
 	protected ChoiceBox <Priority> chbPriority;
 	
@@ -107,6 +106,7 @@ public class Client_View {
 		
 		this.btCreateAccount = new Button("Account erstellen");
 		this.btCreateAccount.getStyleClass().add("btCreateAccount");
+		this.btBack = new Button("Zurück");
 		
 		this.centerRegistration.add(this.lbRegistration, 0, 0);
 		this.centerRegistration.add(this.lbUsername, 0, 1);
@@ -115,6 +115,7 @@ public class Client_View {
 		this.centerRegistration.add(this.txtpPassword, 1, 2);
 		this.centerRegistration.add(this.btCreateAccount, 0, 3, 2, 1);
 		
+		this.registrationView.setTop(this.btBack);
 		this.registrationView.setCenter(this.centerRegistration);
 		
 		
@@ -167,7 +168,6 @@ public class Client_View {
 		
 		this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
-		this.btOurToDo = new Button("Unsere ToDo's");
 		this.btCreateToDo = new Button("+ ToDo");
 		
 		this.lbPortMyView = new Label("Port: ");
@@ -175,7 +175,7 @@ public class Client_View {
 		this.lbServerMyView = new Label("Server IP: ");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
 		
-		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btOurToDo, this.btCreateToDo);
+		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btCreateToDo);
 		this.bottombarMyView.getItems().addAll(this.lbPortMyView, this.lbPortNrMyView, this.lbServerMyView, this.lbServerIPMyView);	
 		
 		
@@ -184,28 +184,38 @@ public class Client_View {
 		this.myToDoView.setBottom(this.bottombarMyView);
 		
 		
-		//View Unsere ToDo's
-		this.ourToDoView = new BorderPane();
+		//View Change PW
+		this.changePWView = new BorderPane();
 		
-		this.ourList = new ListView();
+		this.centerChangePW = new GridPane();
 		
-		this.toolbarOurView = new ToolBar();
-		this.bottombarOurView = new ToolBar();
+		this.toolbarPWView = new ToolBar();
+		this.bottombarChangePW = new ToolBar();
 		
-		this.btMyToDo = new Button("Meine ToDo's");
-		this.btLogoutOurView = new Button("Logout");
+		this.btBackToDo = new Button("Zurück");
+		this.btChange = new Button("Speichern");
 		
 		this.lbPortOurView = new Label("Port: ");
 		this.lbPortNrOurView = new Label(this.PORTNROURVIEW);
 		this.lbServerOurView = new Label("Server IP: ");
 		this.lbServerIPOurView = new Label(this.SEREVRIPOURVIEW);
+		this.lbChangePW = new Label("Passwort ändern");
+		this.lbNewPW = new Label("Neues Passwort");
 		
-		this.toolbarOurView.getItems().addAll(this.btMyToDo, this.btLogoutOurView);
-		this.bottombarOurView.getItems().addAll(this.lbPortOurView, this.lbPortNrOurView, this.lbServerOurView, this.lbServerIPOurView);
+		this.txtNewPW = new TextField();
 		
-		this.ourToDoView.setTop(this.toolbarOurView);
-		this.ourToDoView.setCenter(this.ourList);
-		this.ourToDoView.setBottom(this.bottombarOurView);
+		this.centerChangePW.add(this.lbChangePW, 0, 0);
+		this.centerChangePW.add(this.lbNewPW, 0, 1);
+		this.centerChangePW.add(this.txtNewPW, 1, 1);
+		this.centerChangePW.add(this.btChange, 0, 2, 2, 1);
+		
+		
+		this.toolbarPWView.getItems().addAll(this.btBackToDo);
+		this.bottombarChangePW.getItems().addAll(this.lbPortOurView, this.lbPortNrOurView, this.lbServerOurView, this.lbServerIPOurView);
+		
+		this.changePWView.setTop(this.toolbarPWView);
+		this.changePWView.setCenter(this.centerChangePW);
+		this.changePWView.setBottom(this.bottombarChangePW);
 		
 		
 		//View für ToDo's zu erstellen und Detailansicht
@@ -218,14 +228,12 @@ public class Client_View {
 		this.bottombarToDo = new ToolBar();
 		
 		this.btHome = new Button("Home");
-		this.btOurToDo2 = new Button("Zurück zu \"unsere ToDo's\"");
 		this.btSave = new Button("Speichern");
 		this.btDelete = new Button("Erledigt/Löschen");
 		
 		this.lbTitle = new Label("Titel");
 		this.lbDescription = new Label("Beschreibung");
 		this.lbDueDate = new Label("Fälligkeitsdatum");
-		this.lbShare = new Label("ToDo teilen");
 		this.lbCreator = new Label("Erstellt von");
 		//this.lbCreateDate = new Label("Erstellt am");
 		this.lbPriority = new Label("Priorität");
@@ -247,7 +255,6 @@ public class Client_View {
 		dpDueDate.setEditable(false);
 		
 		this.txtID = new TextField();
-		this.cbShare = new CheckBox();
 		this.txtCreator = new TextField();
 		this.txtCreator.setEditable(false);
 		/*this.dpCreateDate = new DatePicker();
@@ -263,16 +270,14 @@ public class Client_View {
 		this.centerToDo.add(this.chbPriority, 1, 2);
 		this.centerToDo.add(this.lbDueDate, 0, 3);
 		this.centerToDo.add(this.dpDueDate, 1, 3);
-		this.centerToDo.add(this.lbShare, 0, 4);
-		this.centerToDo.add(this.cbShare, 1, 4);
-		this.centerToDo.add(this.lbCreator, 0, 5);
-		this.centerToDo.add(this.txtCreator, 1, 5);
+		this.centerToDo.add(this.lbCreator, 0, 4);
+		this.centerToDo.add(this.txtCreator, 1, 4);
 		this.centerToDo.add(this.txtID, 2, 7);
 		//this.centerToDo.add(this.lbCreateDate, 0, 6);
 		//this.centerToDo.add(this.dpCreateDate, 1, 6);
 		
 		
-		this.toolbarToDo.getItems().addAll(this.btHome, this.btOurToDo2, this.btSave);
+		this.toolbarToDo.getItems().addAll(this.btHome, this.btSave);
 		this.bottombarToDo.getItems().addAll(this.btDelete);
 		
 		this.toDoView.setTop(this.toolbarToDo);
@@ -302,9 +307,9 @@ public class Client_View {
 		stage.setScene(sceneMainView);
 		stage.setTitle("ToDo App");
 		
-		sceneSharedToDos = new Scene(ourToDoView, 700, 550);
-		sceneSharedToDos.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-		stage.setScene(sceneSharedToDos);
+		sceneChangePW = new Scene(changePWView, 700, 550);
+		sceneChangePW.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		stage.setScene(sceneChangePW);
 		stage.setTitle("ToDo App");
 		
 		sceneCreateToDo = new Scene(toDoView, 700, 550);
@@ -345,8 +350,8 @@ public class Client_View {
 	}
 
 
-	public void changeViewOurToDOs() {
-		stage.setScene(sceneSharedToDos);
+	public void changeViewPW() {
+		stage.setScene(sceneChangePW);
 		stage.show();
 	}
 
