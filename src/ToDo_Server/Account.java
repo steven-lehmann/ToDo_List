@@ -29,7 +29,8 @@ public class Account implements Serializable  {
 	
 	public Account(String username, String password) {
 		this.username = username;
-		this.password = password;
+		//this.password = password;
+		this.hashedPassword = hash(password);
 		this.toDoList = new ArrayList<Integer>();
 		
 	}
@@ -78,15 +79,16 @@ public class Account implements Serializable  {
 	}
 
 		
-	public boolean checkPassword(Account account, String password) {
-		Boolean success = false;
-		if(account.getPassword().contentEquals(password)) {
-			success = true;
-		}
-		//	String newHash = hash(password);
-			//boolean success = hashedPassword.equals(newHash);
-			return success;
+	public boolean checkPassword(String password) {
+		String newHash = hash(password);
+		boolean success = hashedPassword.equals(newHash);
+		return success;
 	
+	}
+	
+	public void changePassword(String newPassword) {
+		rand.nextBytes(salt); // Change the salt with the password!
+		this.hashedPassword = hash(newPassword);
 	}
 
 	public static String getToken() {

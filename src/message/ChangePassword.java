@@ -22,10 +22,10 @@ public class ChangePassword extends Message{
 		boolean result = false;
 		if (client.getToken().equals(token)) {
 			Account account = client.getAccount();
-			account.setPassword(password);
+			account.changePassword(password);
 			result = true;
 		}
-		client.send(new Result(this.getClass(), result));
+		client.send(new Result(result));
 	}
 		
 	

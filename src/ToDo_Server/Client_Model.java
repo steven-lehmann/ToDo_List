@@ -114,7 +114,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		msg = socketIn.readLine();
 		System.out.println("Received: " + msg);
 		String[] parts = msg.split("\\|");
-		if(parts[2].equalsIgnoreCase("true")) {
+		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
 		} 
 		

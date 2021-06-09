@@ -20,12 +20,12 @@ public class Login extends Message{
 		Message reply;
 		// Find existing login matching the username
 		Account account = Account.exists(username);
-		if (account != null && account.checkPassword(account, password)) { //Password mit Hash funktioniert nicht 
+		if (account != null && account.checkPassword(password)) { //Password mit Hash funktioniert nicht 
 			String token = Account.getToken();
 			client.setToken(token);
-			reply = new Result(this.getClass(), true, token);
+			reply = new Result(true, token);
 		} else {
-			reply = new Result(this.getClass(), false);
+			reply = new Result(false);
 		}
 		client.send(reply);
 		
