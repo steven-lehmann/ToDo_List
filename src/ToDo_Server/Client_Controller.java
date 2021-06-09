@@ -28,6 +28,12 @@ public class Client_Controller {
 			int port = Integer.parseInt(view.txtPort.getText());
 			model.connect(ipAddress, port);
 			view.backToLogin();
+			try {
+				model.connectionControl();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		});
 		
 			// Überprüfung der Eingaben mit einer Methode ergänzen
