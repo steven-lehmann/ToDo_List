@@ -20,9 +20,6 @@ public class Client_Controller {
 		
 	//	view.btRegistration.setOnAction(this::changeViewRegistration);
 		
-		
-		
-			
 		view.btServerConnect.setOnAction(event -> {
 			String ipAddress = view.txtIpAddress.getText();
 			int port = Integer.parseInt(view.txtPort.getText());
@@ -36,9 +33,6 @@ public class Client_Controller {
 			}
 		});
 		
-			// Überprüfung der Eingaben mit einer Methode ergänzen
-			
-	
 		
 		view.stage.setOnCloseRequest( event -> model.disconnect() );
 		
@@ -66,7 +60,14 @@ public class Client_Controller {
 		
 		view.btHome.setOnAction(this::changeVieMyToDOs);
 
-		view.btSave.setOnAction(this::saveNewToDo);
+		view.btSave.setOnAction(arg0 -> {
+			try {
+				saveNewToDo(arg0);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		view.myList.setOnMouseClicked(this::showToDo);
 		
@@ -146,8 +147,6 @@ public class Client_Controller {
 		int id = Integer.parseInt(view.txtID.getText());
 		ToDo toDo = model.getSelectedToDo(id);
 		model.myTreeToDoList.remove(toDo);
-		if(toDo.getSharedCheck())
-			model.ourToDoList.remove(toDo);
 		this.updateView(null);
 		this.updateAllLists();
 		
@@ -171,11 +170,7 @@ public class Client_Controller {
 			view.txtaDescription.setText(toDo.getDescription());
 			view.chbPriority.getSelectionModel().select(toDo.getPriority());
 			view.dpDueDate.setValue(toDo.getDueDate());
-			if(toDo.getSharedCheck()) {
-				view.cbShare.setSelected(true);
-			} else {
-				view.cbShare.setSelected(false);
-			}
+			
 			view.txtID.setText(String.valueOf(toDo.getID()));
 			//erstellt von
 			
@@ -192,13 +187,16 @@ public class Client_Controller {
 	
 	
 
-	private void saveNewToDo(Event e) {
+	private void saveNewToDo(Event e) throws IOException {
 		String titel = view.txtTitle.getText();
 		Priority priority = view.chbPriority.getSelectionModel().getSelectedItem();
 		String description = view.txtaDescription.getText();
 		LocalDate dueDate = view.dpDueDate.getValue();
 		
-		ToDo toDo = model.createToDo(titel, priority, description, dueDate);
+		//model.createToDo(titel, priority, description, dueDate);
+		System.out.println(dueDate);
+		
+	/*	ToDo toDo = model.createToDo(titel, priority, description, dueDate);
 		model.myTreeToDoList.add(toDo);
 		if (view.cbShare.isSelected()) {
 			model.ourToDoList.add(toDo);
@@ -214,6 +212,7 @@ public class Client_Controller {
 		for(ToDo t : model.ourToDoList) {
 			view.ourList.getItems().add(t);
 		}
+		*/
 	
 		view.changeMainView();
 		
@@ -241,7 +240,18 @@ public class Client_Controller {
 	private void createAccount (Event e) throws IOException {
 		String name = view.txtUsername.getText();
 		String password = view.txtpPassword.getText();
-		Boolean login = model.createAccount(name, password);
-		view.chageViewLogin(); 
+		if(password != null && password.length()>= 3) {
+			if (name != null && name.length() >= 3) {
+			Boolean login = model.createAccount(name, password);
+			view.chageViewLogin();
+			}
+		} else {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Password or Username is invalid");
+			errorAlert.setContentText("username and password must be equal or greater than 3");
+			errorAlert.showAndWait();
+		}
+		
+		; 
 	}
 }

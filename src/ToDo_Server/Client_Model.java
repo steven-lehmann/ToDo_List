@@ -26,6 +26,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	
 	private Logger logger = Logger.getLogger("");
 	private Socket socket;
+	private String token;
 	private OutputStreamWriter socketOut;
 	private BufferedReader socketIn;
 
@@ -65,9 +66,25 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		return newestMessage.get();
 	} */
 
-	public ToDo createToDo(String titel, Priority priority, String description, LocalDate dueDate) {
-		ToDo toDo = new ToDo(titel, priority, description, dueDate);
-		return toDo;
+	public void createToDo(String titel, Priority priority, String description, LocalDate dueDate) throws IOException {
+		// ToDo toDo = new ToDo(titel, priority, description, dueDate);
+		//return toDo;
+		boolean status = false;
+		String line = "Login|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -114,6 +131,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		msg = socketIn.readLine();
 		System.out.println("Received: " + msg);
 		String[] parts = msg.split("\\|");
+		this.token = parts[2];
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
 		} 

@@ -10,7 +10,6 @@ public class ToDo implements Comparable <ToDo> {
 	private Priority priority;
 	private String description;
 	private LocalDate dueDate; 
-	private Boolean sharedCheck;
 
 	
 
@@ -29,7 +28,6 @@ public class ToDo implements Comparable <ToDo> {
 		this.priority = priority;
 		this.description = description;
 		this.dueDate = dueDate;
-		this.sharedCheck = false;
 	}
 	
 	public ToDo(String title, Priority priority, String description) {
@@ -38,7 +36,6 @@ public class ToDo implements Comparable <ToDo> {
 		this.priority = priority;
 		this.description = description;
 		this.dueDate = null;
-		this.sharedCheck = false;
 		
 	}
 
@@ -86,13 +83,6 @@ public class ToDo implements Comparable <ToDo> {
 		return ID;
 	}
 	
-	public Boolean getSharedCheck() {
-		return sharedCheck;
-	}
-
-	public void setSharedCheck(Boolean sharedCheck) {
-		this.sharedCheck = sharedCheck;
-	}
 	
 	@Override
 	public int compareTo(ToDo o) {
