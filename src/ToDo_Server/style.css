@@ -10,6 +10,10 @@
     -fx-alignment: top-center;
 }
 
+.lbServer{
+	-fx-font-size: 28;
+}
+
 .registrationView{
 	-fx-background-color: #f8f8ff;
 }
@@ -40,6 +44,13 @@
 	-fx-font-size: 18;
 }
 
+.btBack{
+	-fx-padding: 10;
+	-fx-background-color: transparent;
+	-fx-border-color: #b0a9aa;
+	-fx-border-radius: 15;
+}
+
 .btCreateAccount{
 	-fx-padding: 10;
 	-fx-aligment: center;
@@ -64,10 +75,11 @@
 
 .lbUserLogin{
 	-fx-min-width: 130;
+	-fx-font-size: 16;
 }
 
 .lbNoAccount{
-	
+	-fx-font-size: 16;
 }
 
 .btLoginUser{
@@ -81,3 +93,67 @@
 	-fx-aligment: center;
 	-fx-min-width: 400;
 }
+
+.myToDoView{
+	-fx-background-color: #f8f8ff;
+}
+
+.myList{
+	-fx-font-size: 16px;
+	-fx-border-color: #f8f8ff;
+	-fx-background-color: #f8f8ff;
+}
+
+.toolbarMyView{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+	-fx-background-color: #f8f8ff;
+}
+
+.bottombar{
+	-fx-background-color: #f8f8ff;
+	-fx-spacing: 10;
+	-fx-padding: 5;
+}
+
+.btMyToDo{
+	-fx-padding: 10;
+	-fx-background-color: transparent;
+	-fx-border-color: #b0a9aa;
+	-fx-border-radius: 15;
+}
+
+.lbServerPort{
+	-fx-padding: 5;
+	-fx-font-size: 10;
+}
+
+.changePWView{
+	-fx-background-color: #f8f8ff;
+}
+
+.centerChangePW{
+	-fx-hgap: 5;
+	-fx-vgap: 25;
+	-fx-padding: 10;
+	-fx-font-size: 14;
+	-fx-alignment: top-center;
+}
+
+.lbChangePW{
+	-fx-font-size: 34;
+}
+
+.btChange{
+	-fx-padding: 8;
+	-fx-aligment: center;
+	-fx-min-width: 400;
+}
+
+.toolbarPWView{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+	-fx-background-color: #f8f8ff;
+}
+
+
