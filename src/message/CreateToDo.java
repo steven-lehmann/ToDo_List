@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import ToDo_Server.Client;
+import ToDo_Server.Client_Model;
 import ToDo_Server.Priority;
 import ToDo_Server.ToDo;
 
@@ -13,6 +14,7 @@ public class CreateToDo extends Message {
 	private String priority;
 	private String description;
 	private String dueDate;
+	private String username;
 	private LocalDate today = LocalDate.now();
 	
 
@@ -29,17 +31,19 @@ public class CreateToDo extends Message {
 	public void process(Client client) {
 		boolean result = false; 
 		Priority p = Priority.valueOf(priority);
+		
 		LocalDate localDate = LocalDate.parse(dueDate);
 		if (client.getToken().equals(token)) {
 			if(title.length()>= 3) {
 				if(localDate.compareTo(today) >= 0) {
-					ToDo toDo = new ToDo(this.title, p, this.description,localDate);
-					
+					this.username = client.getAccount().getUsername();
+					ToDo toDo = new ToDo(this.title, p, this.description,localDate, this.username);
+					Client_Model.getTodolist().add(toDo);
+					result = true;
 				}
-				
+			}
 		}
-		}
-		
+		client.send(new Result(result, ToDo.getIDNr()));
 	}
 
 }

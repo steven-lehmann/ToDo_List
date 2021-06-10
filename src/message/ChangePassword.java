@@ -13,8 +13,6 @@ public class ChangePassword extends Message{
 		super(data);
 		this.token = data[1];
 		this.password = data[2];
-		
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -27,7 +25,4 @@ public class ChangePassword extends Message{
 		}
 		client.send(new Result(result));
 	}
-		
-	
-
 }

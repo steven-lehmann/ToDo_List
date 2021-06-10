@@ -1,17 +1,17 @@
 package ToDo_Server;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ToDo implements Comparable <ToDo> {
 	
-	private static int IDNr = 0;
+	private static int IDNr = -1;
 	private final int ID;
 	private String title;
 	private Priority priority;
 	private String description;
 	private LocalDate dueDate; 
-
-	
+	private String username;
 
 	private static int getNexID() {
 		return ++IDNr;
@@ -22,21 +22,32 @@ public class ToDo implements Comparable <ToDo> {
 		return title + " Deadline: " + dueDate;
 	}
 
-	public ToDo(String title, Priority priority, String description, LocalDate dueDate) {
+	public ToDo(String title, Priority priority, String description, LocalDate dueDate, String username) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;
 		this.description = description;
 		this.dueDate = dueDate;
+		this.username = username;
 	}
 	
-	public ToDo(String title, Priority priority, String description) {
+	
+	public ToDo(String title, Priority priority, String description, String username) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;
 		this.description = description;
 		this.dueDate = null;
-		
+		this.username = username;
+	}
+	
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public static int getIDNr() {

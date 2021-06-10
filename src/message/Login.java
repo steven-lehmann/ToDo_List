@@ -20,9 +20,10 @@ public class Login extends Message{
 		Message reply;
 		// Find existing login matching the username
 		Account account = Account.exists(username);
-		if (account != null && account.checkPassword(password)) { //Password mit Hash funktioniert nicht 
+		if (account != null && account.checkPassword(password)) { 
 			String token = Account.getToken();
 			client.setToken(token);
+			client.setAccount(account);
 			reply = new Result(true, token);
 		} else {
 			reply = new Result(false);

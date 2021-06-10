@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
@@ -18,8 +19,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Client_Model {
 	
-	protected TreeSet<ToDo> myTreeToDoList = new TreeSet<ToDo>();
-	protected TreeSet<ToDo> ourToDoList = new TreeSet<ToDo>();
+	protected ArrayList<Integer> listIds = new ArrayList<Integer>();
+	protected static ArrayList<ToDo> toDoList = new ArrayList<ToDo>();
 
 protected SimpleStringProperty newestMessage = new SimpleStringProperty();
 protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -27,6 +28,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	private Logger logger = Logger.getLogger("");
 	private Socket socket;
 	private String token;
+	private String username;
 	private OutputStreamWriter socketOut;
 	private BufferedReader socketIn;
 
@@ -70,7 +72,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		// ToDo toDo = new ToDo(titel, priority, description, dueDate);
 		//return toDo;
 		boolean status = false;
-		String line = "Login|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
+		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
 		socketOut.flush();
 		System.out.println("Sent: " + line);
@@ -86,16 +88,6 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 			e.printStackTrace();
 		}
 		
-	}
-
-	public ToDo getSelectedToDo(int id) {
-		ToDo toDo = null;
-		for(ToDo t : myTreeToDoList) {
-			if(t.getID() == id) {
-				toDo = t;
-			}
-		}
-		return toDo;
 	}
 
 	public boolean createAccount(String name, String password) throws IOException {
@@ -125,6 +117,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String line = "Login|" + userName + "|" + password;
 		socketOut.write(line + "\n");
 		socketOut.flush();
+		this.username = userName;
 		System.out.println("Sent: " + line);
 		String msg = null;
 		try {
@@ -189,8 +182,57 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		}
 		
 	}
+
+	public boolean newPassword(String newPW) throws IOException {
+		boolean status = false; 
+		String line = "ChangePassword|" + this.token + "|" + newPW;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 return status;
+	}
+
+
+	public void getMyToDos() throws IOException {
+		boolean status = false;
+		String line = "ListToDos|" + this.token;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+			
+		}
+		
+		for(int i = 2; i < parts.length; i++) {
+			listIds.add(Integer.parseInt(parts[i]));
+		}
+		
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
-
-
-
+	public static ArrayList<ToDo> getTodolist() {
+		return toDoList;
+	}
+	
 }

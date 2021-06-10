@@ -34,5 +34,11 @@ public class Result extends Message {
 	public void process(Client client) {
 	}
 	
-
+	/**
+	 * message for CreateToDo
+	 */
+	public Result(boolean result, int ID) {
+		super(new String[] {"Result", Boolean.toString(result), Integer.toString(ID)});		
+	}
+	
 }

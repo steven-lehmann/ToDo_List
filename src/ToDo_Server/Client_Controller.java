@@ -95,6 +95,27 @@ public class Client_Controller {
 			}
 		});
 		
+		view.btChange.setOnAction(arg0 -> {
+			try {
+				changePassword(arg0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		});
+		
+		view.btBackToDo.setOnAction(this::changeMainView);
+		
+		view.btShowMyToDos.setOnAction(arg0 -> {
+			try {
+				showMyToDos(arg0);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		
 		
 	//	view.btnSend.setOnAction( event -> model.sendMessage(view.txtChatMessage.getText()));
 		
@@ -144,7 +165,7 @@ public class Client_Controller {
 	}
 	*/
 	private void deleteToDo(Event e) {
-		int id = Integer.parseInt(view.txtID.getText());
+		/*int id = Integer.parseInt(view.txtID.getText());
 		ToDo toDo = model.getSelectedToDo(id);
 		model.myTreeToDoList.remove(toDo);
 		this.updateView(null);
@@ -160,7 +181,7 @@ public class Client_Controller {
 		}
 		for(ToDo t : model.ourToDoList) {
 			//view.ourList.getItems().add(t);
-		}
+		}*/
 		
 	}
 
@@ -175,10 +196,10 @@ public class Client_Controller {
 				view.cbShare.setSelected(true);
 			} else {
 				view.cbShare.setSelected(false);
-			}*/
+			}
 
 			view.txtID.setText(String.valueOf(toDo.getID()));
-			//erstellt von
+			//erstellt von*/
 			
 		} else {
 			view.txtTitle.setText("");
@@ -199,15 +220,14 @@ public class Client_Controller {
 		String description = view.txtaDescription.getText();
 		LocalDate dueDate = view.dpDueDate.getValue();
 		
-		//model.createToDo(titel, priority, description, dueDate);
-		System.out.println(dueDate);
+		model.createToDo(titel, priority, description, dueDate);
 		
 	/*	ToDo toDo = model.createToDo(titel, priority, description, dueDate);
 		model.myTreeToDoList.add(toDo);
 		/*if (view.cbShare.isSelected()) {
 			model.ourToDoList.add(toDo);
 			toDo.setSharedCheck(true);
-		}*/
+		}
 	
 		view.myList.getItems().clear();
 		for(ToDo t : model.myTreeToDoList) {
@@ -221,7 +241,6 @@ public class Client_Controller {
 		*/
 	
 		view.changeMainView();
-		
 	}
 	
 	private void changeViewRegistration (Event e) {
@@ -257,7 +276,27 @@ public class Client_Controller {
 			errorAlert.setContentText("username and password must be equal or greater than 3");
 			errorAlert.showAndWait();
 		}
+	}
+	
+	private void changePassword(Event e) throws IOException {
+		String newPW = view.txtNewPW.getText();
+		model.newPassword(newPW);
 		
-		; 
+	}
+	
+	private void changeMainView(Event e) {
+		view.changeMainView();
+	}
+	
+	private void showMyToDos(Event e) throws IOException {
+		model.getMyToDos();
+		
+		for(int i : model.listIds) {
+			for(ToDo t : Client_Model.getTodolist()) {
+				if(t.getID() == i) {
+					view.myList.getItems().add(t);
+				}
+			}
+		}
 	}
 }

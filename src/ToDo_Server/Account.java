@@ -17,7 +17,6 @@ public class Account implements Serializable  {
 	private static final long serialVersionUID = 1;
 	private static Logger logger = Logger.getLogger("");
 	private String password;
-	private ArrayList<Integer>  toDoList;
 	private static final SecureRandom rand = new SecureRandom();
 	private final String username;
 	private static final int iterations = 127;
@@ -31,7 +30,6 @@ public class Account implements Serializable  {
 		this.username = username;
 		//this.password = password;
 		this.hashedPassword = hash(password);
-		this.toDoList = new ArrayList<Integer>();
 		
 	}
 	
@@ -49,22 +47,6 @@ public class Account implements Serializable  {
 
 	public String getUsername() {
 		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public ArrayList<Integer> getToDoList() {
-		return toDoList;
-	}
-
-	public void setToDoList(ArrayList<Integer> toDoList) {
-		this.toDoList = toDoList;
 	}
 	
 	@Override

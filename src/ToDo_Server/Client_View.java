@@ -44,7 +44,7 @@ public class Client_View {
 				PORTNROURVIEW = "50002"; 
 	
 	protected Button btServerConnect, btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btChange, btBack,
-		btMyToDo, btBackToDo, btHome, btSave, btDelete, btCreateToDo;
+		btMyToDo, btBackToDo, btHome, btSave, btDelete, btCreateToDo, btShowMyToDos;
 	
 	protected TextField txtUsername, txtUsernameLogin, txtIpAddress, txtPort, txtTitle, txtCreator, txtID, txtNewPW;
 	
@@ -168,6 +168,7 @@ public class Client_View {
 		
 		this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
+		this.btShowMyToDos = new Button("Zeige meine ToDo's");
 		this.btCreateToDo = new Button("+ ToDo");
 		
 		this.lbPortMyView = new Label("Port: ");
@@ -175,7 +176,7 @@ public class Client_View {
 		this.lbServerMyView = new Label("Server IP: ");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
 		
-		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btCreateToDo);
+		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btShowMyToDos, this.btCreateToDo);
 		this.bottombarMyView.getItems().addAll(this.lbPortMyView, this.lbPortNrMyView, this.lbServerMyView, this.lbServerIPMyView);	
 		
 		
