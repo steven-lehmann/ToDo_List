@@ -14,9 +14,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class Client_View {
@@ -31,17 +34,20 @@ public class Client_View {
 		
 	protected GridPane centerServerConnection, centerRegistration, centerLogin, centerToDo, centerChangePW;
 	
+	protected HBox spacer, spacer2, bottom;
+	
 	protected ListView myList;
 	
 	protected ToolBar toolbarMyView, toolbarPWView, bottombarMyView, bottombarChangePW, toolbarToDo, bottombarToDo;
 	
-	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin, lbIpAddress, lbPort,
-		lbPortMyView, lbPortNrMyView, lbPortOurView, lbPortNrOurView, lbServerMyView, lbServerIPMyView,
-			lbServerOurView, lbServerIPOurView, lbTitle, lbDescription, lbDueDate, lbShare, lbCreator, 
-			lbCreateDate, lbPriority, lbNoAccount, lbChangePW, lbNewPW;
+	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin,
+			lbIpAddress, lbPort, lbPortMyView, lbPortNrMyView, lbPortPWView, lbPortNrPWView,
+			lbServerMyView, lbServerIPMyView, lbServerPWView, lbServerIPPWView, lbTitle, lbDescription,
+			lbDueDate, lbShare, lbCreator, lbCreateDate, lbPriority, lbNoAccount, lbChangePW, 
+			lbNewPW, lbServer;
 	
-	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPOURVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
-				PORTNROURVIEW = "50002"; 
+	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPPWVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
+				PORTNRPWVIEW = "50002"; 
 	
 	protected Button btServerConnect, btLogin, btRegistration, btCreateAccount, btLoginUser, btLogoutMyView, btChangePassword, btChange, btBack,
 		btMyToDo, btBackToDo, btHome, btSave, btDelete, btCreateToDo, btShowMyToDos;
@@ -55,6 +61,18 @@ public class Client_View {
 	protected ChoiceBox <Priority> chbPriority;
 	
 	protected PasswordField txtpPassword, txtpPasswordLogin;
+	
+	protected static Image ICONBACK = new Image("/zuruck.png");
+	protected static Image ICONPW = new Image("/changepw.png");
+	protected static Image ICONLOGOUT = new Image("/ausloggen.png");
+	protected static Image ICONADDTODO = new Image("/add.png");
+	protected static Image ICONHOME = new Image("/zuruck.png");
+	protected static Image ICONHOMETODO = new Image("/zuruck.png");
+	protected static Image ICONDONE = new Image("/loschen.png");
+	protected static Image ICONSAVE = new Image("/uberpruft.png");
+	
+	protected ImageView iconBack, iconLogout, iconChangePW, iconAddToDo,
+		iconHome, iconHomeToDo, iconDone, iconSave;
 
 	public Client_View(Stage stage, Client_Model model) {
 		this.model = model;
@@ -72,6 +90,8 @@ public class Client_View {
 		this.lbIpAddress.getStyleClass().add("lbServerConnection");
 		this.lbPort = new Label ("Port");
 		this.lbPort.getStyleClass().add("lbServerConnection");
+		this.lbServer = new Label("Verbindung herstellen");
+		this.lbServer.getStyleClass().add("lbServer");
 		
 		this.btServerConnect = new Button("Verbinden");
 		this.btServerConnect.getStyleClass().add("btServerConnection");
@@ -79,11 +99,12 @@ public class Client_View {
 		this.txtIpAddress = new TextField();
 		this.txtPort = new TextField();
 		
-		this.centerServerConnection.add(this.lbIpAddress, 0, 0);
-		this.centerServerConnection.add(this.txtIpAddress, 1, 0);
-		this.centerServerConnection.add(this.lbPort, 0, 1);
-		this.centerServerConnection.add(this.txtPort, 1, 1);
-		this.centerServerConnection.add(this.btServerConnect, 0, 2, 2, 1);
+		this.centerServerConnection.add(this.lbServer, 0, 0, 2, 1);
+		this.centerServerConnection.add(this.lbIpAddress, 0, 1);
+		this.centerServerConnection.add(this.txtIpAddress, 1, 1);
+		this.centerServerConnection.add(this.lbPort, 0, 2);
+		this.centerServerConnection.add(this.txtPort, 1, 2);
+		this.centerServerConnection.add(this.btServerConnect, 0, 3, 2, 1);
 		
 		this.root.setCenter(this.centerServerConnection);
 		
@@ -106,7 +127,13 @@ public class Client_View {
 		
 		this.btCreateAccount = new Button("Account erstellen");
 		this.btCreateAccount.getStyleClass().add("btCreateAccount");
-		this.btBack = new Button("Zurück");
+		this.btBack = new Button();
+		this.btBack.getStyleClass().add("btBack");
+		
+		this.iconBack = new ImageView(ICONBACK);
+		this.btBack.setGraphic(this.iconBack);
+		this.iconBack.setFitHeight(40);
+		this.iconBack.setFitWidth(40);
 		
 		this.centerRegistration.add(this.lbRegistration, 0, 0);
 		this.centerRegistration.add(this.lbUsername, 0, 1);
@@ -140,7 +167,6 @@ public class Client_View {
 		this.txtUsernameLogin = new TextField();
 		this.txtpPasswordLogin = new PasswordField();
 
-		
 		this.btLoginUser = new Button("Login");
 		this.btLoginUser.getStyleClass().add("btLoginUser");
 		this.btRegistration = new Button("Registrieren");
@@ -160,21 +186,56 @@ public class Client_View {
 		
 		//View Meine ToDo's
 		this.myToDoView = new BorderPane();
+		this.myToDoView.getStyleClass().add("myToDoView");
 		
 		this.myList = new ListView();
+		this.myList.getStyleClass().add("myList");
 		
 		this.toolbarMyView = new ToolBar();
+		this.toolbarMyView.getStyleClass().add("toolbarMyView");
 		this.bottombarMyView = new ToolBar();
+		this.bottombarMyView.getStyleClass().add("bottombar");
 		
+
 		this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
 		this.btShowMyToDos = new Button("Zeige meine ToDo's");
 		this.btCreateToDo = new Button("+ ToDo");
+
+		this.btLogoutMyView = new Button();
+		this.btLogoutMyView.getStyleClass().add("btMyToDo");
+		
+		this.iconLogout = new ImageView(ICONLOGOUT);
+		this.btLogoutMyView.setGraphic(this.iconLogout);
+		this.iconLogout.setFitHeight(40);
+		this.iconLogout.setFitWidth(40);
+		
+		this.btChangePassword = new Button();
+		this.btChangePassword.getStyleClass().add("btMyToDo");
+		
+		this.iconChangePW = new ImageView(ICONPW);
+		this.btChangePassword.setGraphic(this.iconChangePW);
+		this.iconChangePW.setFitHeight(40);
+		this.iconChangePW.setFitWidth(40);
+		
+		this.btCreateToDo = new Button();
+		this.btCreateToDo.getStyleClass().add("btMyToDo");
+		
+		this.iconAddToDo = new ImageView(ICONADDTODO);
+		this.btCreateToDo.setGraphic(this.iconAddToDo);
+		this.iconAddToDo.setFitHeight(40);
+		this.iconAddToDo.setFitWidth(40);
+		
+
 		
 		this.lbPortMyView = new Label("Port: ");
+		this.lbPortMyView.getStyleClass().add("lbServerPort");
 		this.lbPortNrMyView = new Label(this.PORTNRMYVIEW);
+		this.lbPortNrMyView.getStyleClass().add("lbServerPort");
 		this.lbServerMyView = new Label("Server IP: ");
+		this.lbServerMyView.getStyleClass().add("lbServerPort");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
+		this.lbServerIPMyView.getStyleClass().add("lbServerPort");
 		
 		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btShowMyToDos, this.btCreateToDo);
 		this.bottombarMyView.getItems().addAll(this.lbPortMyView, this.lbPortNrMyView, this.lbServerMyView, this.lbServerIPMyView);	
@@ -187,32 +248,50 @@ public class Client_View {
 		
 		//View Change PW
 		this.changePWView = new BorderPane();
+		this.changePWView.getStyleClass().add("changePWView");
 		
 		this.centerChangePW = new GridPane();
+		this.centerChangePW.getStyleClass().add("centerChangePW");
 		
 		this.toolbarPWView = new ToolBar();
+		this.toolbarPWView.getStyleClass().add("toolbarPWView");
 		this.bottombarChangePW = new ToolBar();
+		this.bottombarChangePW.getStyleClass().add("bottombar");
 		
-		this.btBackToDo = new Button("Zurück");
+		this.btBackToDo = new Button();
+		this.btBackToDo.getStyleClass().add("btMyToDo");
+		
+		this.iconHome = new ImageView(ICONHOME);
+		this.btBackToDo.setGraphic(this.iconHome);
+		this.iconHome.setFitHeight(40);
+		this.iconHome.setFitWidth(40);
+		
 		this.btChange = new Button("Speichern");
+		this.btChange.getStyleClass().add("btChange");
 		
-		this.lbPortOurView = new Label("Port: ");
-		this.lbPortNrOurView = new Label(this.PORTNROURVIEW);
-		this.lbServerOurView = new Label("Server IP: ");
-		this.lbServerIPOurView = new Label(this.SEREVRIPOURVIEW);
+		this.lbPortPWView = new Label("Port: ");
+		this.lbPortPWView.getStyleClass().add("lbServerPort");
+		this.lbPortNrPWView = new Label(this.PORTNRPWVIEW);
+		this.lbPortNrPWView.getStyleClass().add("lbServerPort");
+		this.lbServerPWView = new Label("Server IP: ");
+		this.lbServerPWView.getStyleClass().add("lbServerPort");
+		this.lbServerIPPWView = new Label(this.SEREVRIPPWVIEW);
+		this.lbServerIPPWView.getStyleClass().add("lbServerPort");
 		this.lbChangePW = new Label("Passwort ändern");
+		this.lbChangePW.getStyleClass().add("lbChangePW");
 		this.lbNewPW = new Label("Neues Passwort");
+		this.lbNewPW.getStyleClass().add("lbNewPW");
 		
 		this.txtNewPW = new TextField();
 		
-		this.centerChangePW.add(this.lbChangePW, 0, 0);
+		this.centerChangePW.add(this.lbChangePW, 0, 0, 2, 1);
 		this.centerChangePW.add(this.lbNewPW, 0, 1);
 		this.centerChangePW.add(this.txtNewPW, 1, 1);
 		this.centerChangePW.add(this.btChange, 0, 2, 2, 1);
 		
 		
 		this.toolbarPWView.getItems().addAll(this.btBackToDo);
-		this.bottombarChangePW.getItems().addAll(this.lbPortOurView, this.lbPortNrOurView, this.lbServerOurView, this.lbServerIPOurView);
+		this.bottombarChangePW.getItems().addAll(this.lbPortPWView, this.lbPortNrPWView, this.lbServerPWView, this.lbServerIPPWView);
 		
 		this.changePWView.setTop(this.toolbarPWView);
 		this.changePWView.setCenter(this.centerChangePW);
@@ -222,27 +301,68 @@ public class Client_View {
 		//View für ToDo's zu erstellen und Detailansicht
 		
 		this.toDoView = new BorderPane();
+		this.toDoView.getStyleClass().add("toDoView");
 		
 		this.centerToDo = new GridPane();
+		this.centerToDo.getStyleClass().add("centerToDo");
 		
 		this.toolbarToDo = new ToolBar();
+		this.toolbarToDo.getStyleClass().add("toolbarToDo");
 		this.bottombarToDo = new ToolBar();
+		this.bottombarToDo.getStyleClass().add("bottombarToDo");
 		
-		this.btHome = new Button("Home");
-		this.btSave = new Button("Speichern");
-		this.btDelete = new Button("Erledigt/Löschen");
+		
+		this.btHome = new Button();
+		this.btHome.getStyleClass().add("btHome");
+		
+		this.iconHomeToDo = new ImageView(ICONHOMETODO);
+		this.btHome.setGraphic(this.iconHomeToDo);
+		this.iconHomeToDo.setFitHeight(40);
+		this.iconHomeToDo.setFitWidth(40);
+		
+		this.btSave = new Button();
+		this.btSave.getStyleClass().add("btSave");
+		
+		this.iconSave = new ImageView(ICONSAVE);
+		this.btSave.setGraphic(this.iconSave);
+		this.iconSave.setFitHeight(40);
+		this.iconSave.setFitWidth(40);
+		
+		this.btDelete = new Button();
+		this.btDelete.getStyleClass().add("btDelete");
+		
+		this.iconDone = new ImageView(ICONDONE);
+		this.btDelete.setGraphic(this.iconDone);
+		this.iconDone.setFitHeight(40);
+		this.iconDone.setFitWidth(40);
+		
+		this.spacer = new HBox();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		this.spacer2 = new HBox();
+		HBox.setHgrow(spacer2, Priority.ALWAYS);
+		this.bottom = new HBox();
+		this.bottom.getChildren().add(this.btDelete);
+		this.bottom.getStyleClass().add("bottom");
 		
 		this.lbTitle = new Label("Titel");
+		this.lbTitle.getStyleClass().add("lbToDoForm");
 		this.lbDescription = new Label("Beschreibung");
+		this.lbDescription.getStyleClass().add("lbToDoForm");
 		this.lbDueDate = new Label("Fälligkeitsdatum");
+		this.lbDueDate.getStyleClass().add("lbToDoForm");
 		this.lbCreator = new Label("Erstellt von");
+		this.lbCreator.getStyleClass().add("lbToDoForm");
 		//this.lbCreateDate = new Label("Erstellt am");
 		this.lbPriority = new Label("Priorität");
+		this.lbPriority.getStyleClass().add("lbToDoForm");
 		
 		this.txtTitle = new TextField();
+		this.txtTitle.getStyleClass().add("fieldsToDo");
 		this.txtaDescription = new TextArea();
+		this.txtaDescription.getStyleClass().add("fieldsToDo");
 		
 		this.dpDueDate = new DatePicker();
+		this.dpDueDate.getStyleClass().add("fieldsToDo");
 		dpDueDate.setDayCellFactory(picker -> new DateCell() {
 		        public void updateItem(LocalDate date, boolean empty) {
 		            super.updateItem(date, empty);
@@ -257,10 +377,12 @@ public class Client_View {
 		
 		this.txtID = new TextField();
 		this.txtCreator = new TextField();
+		this.txtCreator.getStyleClass().add("fieldsToDo");
 		this.txtCreator.setEditable(false);
 		/*this.dpCreateDate = new DatePicker();
 		this.dpCreateDate.setEditable(false);*/
 		this.chbPriority = new ChoiceBox <Priority>();
+		this.chbPriority.getStyleClass().add("fieldsToDo");
 		this.chbPriority.getItems().addAll(Priority.values());
 		
 		this.centerToDo.add(this.lbTitle, 0, 0);
@@ -273,13 +395,13 @@ public class Client_View {
 		this.centerToDo.add(this.dpDueDate, 1, 3);
 		this.centerToDo.add(this.lbCreator, 0, 4);
 		this.centerToDo.add(this.txtCreator, 1, 4);
-		this.centerToDo.add(this.txtID, 2, 7);
+		this.centerToDo.add(this.txtID, 1, 6);
 		//this.centerToDo.add(this.lbCreateDate, 0, 6);
 		//this.centerToDo.add(this.dpCreateDate, 1, 6);
 		
 		
-		this.toolbarToDo.getItems().addAll(this.btHome, this.btSave);
-		this.bottombarToDo.getItems().addAll(this.btDelete);
+		this.toolbarToDo.getItems().addAll(this.btHome, this.spacer, this.btSave);
+		this.bottombarToDo.getItems().addAll(this.spacer2, this.bottom);
 		
 		this.toDoView.setTop(this.toolbarToDo);
 		this.toDoView.setCenter(this.centerToDo);
