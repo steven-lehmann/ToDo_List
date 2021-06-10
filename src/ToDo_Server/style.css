@@ -105,14 +105,13 @@
 }
 
 .toolbarMyView{
+	-fx-padding: 10;
 	-fx-spacing: 10;
-	-fx-padding: 5;
 	-fx-background-color: #f8f8ff;
 }
 
 .bottombar{
 	-fx-background-color: #f8f8ff;
-	-fx-spacing: 10;
 	-fx-padding: 5;
 }
 
@@ -151,9 +150,64 @@
 }
 
 .toolbarPWView{
-	-fx-spacing: 10;
-	-fx-padding: 5;
+	-fx-padding: 10;
 	-fx-background-color: #f8f8ff;
 }
 
+.toDoView{
+	-fx-background-color: #f8f8ff;
+}
 
+.centerToDo{
+	-fx-hgap: 5;
+	-fx-vgap: 25;
+	-fx-padding: 10;
+	-fx-font-size: 14;
+	-fx-alignment: center-left;
+}
+
+.toolbarToDo{
+	-fx-padding: 10;
+	-fx-background-color: #f8f8ff;
+}
+
+.bottombarToDo{
+	-fx-padding: 10;
+	-fx-background-color: #f8f8ff;
+}
+
+.bottom{
+	-fx-spacing: 20;
+	-fx-hgap: 10;
+	-fx-vgap: 10;
+}
+
+.btHome{
+	-fx-padding: 10;
+	-fx-background-color: transparent;
+	-fx-border-color: #b0a9aa;
+	-fx-border-radius: 15;
+}
+
+.btSave{
+	-fx-padding: 10;
+	-fx-background-color: transparent;
+	-fx-border-color: #b0a9aa;
+	-fx-border-radius: 15;
+}
+
+.btDelete{
+	-fx-padding: 10;
+	-fx-background-color: transparent;
+	-fx-border-color: #b0a9aa;
+	-fx-border-radius: 15;
+}
+
+.lbToDoForm{
+	-fx-min-width: 150;
+	-fx-font-size: 14;
+}
+
+.fieldsToDo{
+	-fx-max-width: 400;
+}
