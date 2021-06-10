@@ -96,8 +96,6 @@ public class Client_Controller {
 		});
 		
 		
-		
-		
 	//	view.btnSend.setOnAction( event -> model.sendMessage(view.txtChatMessage.getText()));
 		
 		// model.newestMessage.addListener( (o, oldValue, newValue) -> view.txtChatArea.appendText(newValue) );
@@ -106,6 +104,7 @@ public class Client_Controller {
 
 		
 	}
+	
 	
 	private void logOut(Event e) throws IOException {
 		model.logOut();
@@ -218,7 +217,6 @@ public class Client_Controller {
 		/*view.ourList.getItems().clear();
 		for(ToDo t : model.ourToDoList) {
 			view.ourList.getItems().add(t);
-<<<<<<< HEAD
 		}
 		*/
 	

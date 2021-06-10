@@ -131,9 +131,10 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		msg = socketIn.readLine();
 		System.out.println("Received: " + msg);
 		String[] parts = msg.split("\\|");
-		this.token = parts[2];
+		
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+			this.token = parts[2];
 		} 
 		
 		} catch (IOException e) {
@@ -159,6 +160,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+			System.out.println(this.token); // löschen später
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
