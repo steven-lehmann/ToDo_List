@@ -27,6 +27,7 @@ public class ListToDos extends Message {
 				if(t.getUsername().equals(client.getAccount().getUsername())) {
 							
 					this.ids.add(Integer.toString(t.getID()));
+					
 				}
 			}
 			result = true;

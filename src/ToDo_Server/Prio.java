@@ -1,6 +1,6 @@
 package ToDo_Server;
 
-public enum Priority {
+public enum Prio {
 	
 	Low, Medium, High;
 	

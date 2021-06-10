@@ -2,10 +2,9 @@ package message;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import ToDo_Server.Client;
 import ToDo_Server.Client_Model;
-import ToDo_Server.Priority;
+import ToDo_Server.Prio;
 import ToDo_Server.ToDo;
 
 public class CreateToDo extends Message {
@@ -30,7 +29,7 @@ public class CreateToDo extends Message {
 	@Override
 	public void process(Client client) {
 		boolean result = false; 
-		Priority p = Priority.valueOf(priority);
+		Prio p = Prio.valueOf(priority);
 		
 		LocalDate localDate = LocalDate.parse(dueDate);
 		if (client.getToken().equals(token)) {
@@ -38,7 +37,9 @@ public class CreateToDo extends Message {
 				if(localDate.compareTo(today) >= 0) {
 					this.username = client.getAccount().getUsername();
 					ToDo toDo = new ToDo(this.title, p, this.description,localDate, this.username);
-					Client_Model.getTodolist().add(toDo);
+					//Client_Model.getTodolist().add(toDo);
+					Client_Model.addTodolist(toDo);
+					
 					result = true;
 				}
 			}

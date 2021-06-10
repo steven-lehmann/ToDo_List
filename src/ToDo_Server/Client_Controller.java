@@ -3,11 +3,12 @@ package ToDo_Server;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+
+
 
 public class Client_Controller {
 	
@@ -216,7 +217,7 @@ public class Client_Controller {
 
 	private void saveNewToDo(Event e) throws IOException {
 		String titel = view.txtTitle.getText();
-		Priority priority = view.chbPriority.getSelectionModel().getSelectedItem();
+		Prio priority = view.chbPriority.getSelectionModel().getSelectedItem();
 		String description = view.txtaDescription.getText();
 		LocalDate dueDate = view.dpDueDate.getValue();
 		
@@ -241,6 +242,7 @@ public class Client_Controller {
 		*/
 	
 		view.changeMainView();
+		
 	}
 	
 	private void changeViewRegistration (Event e) {
@@ -294,7 +296,7 @@ public class Client_Controller {
 		for(int i : model.listIds) {
 			for(ToDo t : Client_Model.getTodolist()) {
 				if(t.getID() == i) {
-					view.myList.getItems().add(t);
+					view.myList.getItems().addAll(t);
 				}
 			}
 		}

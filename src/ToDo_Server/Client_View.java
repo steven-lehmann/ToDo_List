@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -19,8 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javafx.scene.layout.Priority;;
 
 public class Client_View {
 	
@@ -36,7 +35,7 @@ public class Client_View {
 	
 	protected HBox spacer, spacer2, bottom;
 	
-	protected ListView myList;
+	protected ListView <ToDo> myList;
 	
 	protected ToolBar toolbarMyView, toolbarPWView, bottombarMyView, bottombarChangePW, toolbarToDo, bottombarToDo;
 	
@@ -58,7 +57,7 @@ public class Client_View {
 	
 	protected DatePicker dpDueDate, dpCreateDate;
 	
-	protected ChoiceBox <Priority> chbPriority;
+	protected ChoiceBox <Prio> chbPriority;
 	
 	protected PasswordField txtpPassword, txtpPasswordLogin;
 	
@@ -188,7 +187,7 @@ public class Client_View {
 		this.myToDoView = new BorderPane();
 		this.myToDoView.getStyleClass().add("myToDoView");
 		
-		this.myList = new ListView();
+		this.myList = new ListView <ToDo>();
 		this.myList.getStyleClass().add("myList");
 		
 		this.toolbarMyView = new ToolBar();
@@ -381,9 +380,9 @@ public class Client_View {
 		this.txtCreator.setEditable(false);
 		/*this.dpCreateDate = new DatePicker();
 		this.dpCreateDate.setEditable(false);*/
-		this.chbPriority = new ChoiceBox <Priority>();
+		this.chbPriority = new ChoiceBox <Prio>();
 		this.chbPriority.getStyleClass().add("fieldsToDo");
-		this.chbPriority.getItems().addAll(Priority.values());
+		this.chbPriority.getItems().addAll(Prio.values());
 		
 		this.centerToDo.add(this.lbTitle, 0, 0);
 		this.centerToDo.add(this.txtTitle, 1, 0);

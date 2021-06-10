@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 
 
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client_Model {
@@ -68,7 +69,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		return newestMessage.get();
 	} */
 
-	public void createToDo(String titel, Priority priority, String description, LocalDate dueDate) throws IOException {
+	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
 		// ToDo toDo = new ToDo(titel, priority, description, dueDate);
 		//return toDo;
 		boolean status = false;
@@ -211,12 +212,16 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		socketOut.flush();
 		System.out.println("Sent: " + line);
 		String msg = null;
+
 		try {
 		msg = socketIn.readLine();
 		System.out.println("Received: " + msg);
 		String[] parts = msg.split("\\|");
+		
+		
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+
 			
 		}
 		
@@ -233,6 +238,10 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	
 	public static ArrayList<ToDo> getTodolist() {
 		return toDoList;
+	}
+	
+	public static void addTodolist(ToDo t) {
+			toDoList.add(t);
 	}
 	
 }

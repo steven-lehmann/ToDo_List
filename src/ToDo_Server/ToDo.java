@@ -3,12 +3,14 @@ package ToDo_Server;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+
+
 public class ToDo implements Comparable <ToDo> {
 	
 	private static int IDNr = -1;
 	private final int ID;
 	private String title;
-	private Priority priority;
+	private Prio priority;
 	private String description;
 	private LocalDate dueDate; 
 	private String username;
@@ -22,7 +24,7 @@ public class ToDo implements Comparable <ToDo> {
 		return title + " Deadline: " + dueDate;
 	}
 
-	public ToDo(String title, Priority priority, String description, LocalDate dueDate, String username) {
+	public ToDo(String title, Prio priority, String description, LocalDate dueDate, String username) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;
@@ -32,7 +34,7 @@ public class ToDo implements Comparable <ToDo> {
 	}
 	
 	
-	public ToDo(String title, Priority priority, String description, String username) {
+	public ToDo(String title, Prio priority, String description, String username) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;
@@ -66,11 +68,11 @@ public class ToDo implements Comparable <ToDo> {
 		this.title = title;
 	}
 
-	public Priority getPriority() {
+	public Prio getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Priority priority) {
+	public void setPriority(Prio priority) {
 		this.priority = priority;
 	}
 
