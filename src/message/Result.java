@@ -10,7 +10,7 @@ public class Result extends Message {
 	 * This constructor is used by most messages
 	 */
 	public Result(boolean result) {
-		super(new String[] {"Result", Boolean.toString(result)});		
+		super(new String[] {"Result", Boolean.toString(result)});	
 	}
 	
 	/**

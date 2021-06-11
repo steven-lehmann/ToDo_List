@@ -32,7 +32,6 @@ public class Server {
 						try {
 							Socket socket = server.accept();
 							Client client = new Client(socket);
-							System.out.println("Verbindung zum Server hergestellt");
 							Client.add(client);
 						} catch (Exception e) {
 							logger.info(e.toString());

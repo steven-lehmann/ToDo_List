@@ -48,7 +48,7 @@ public abstract class Message {
 		try {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msgText = in.readLine(); // Will wait here for complete line
-			logger.info("Receiving message hat funktioniert: " + msgText);
+			logger.info("Receiving message: " + msgText);
 			// Break message into individual parts, and remove extra spaces
 			String[] parts = msgText.split("\\|");
 			for (int i = 0; i < parts.length; i++) {

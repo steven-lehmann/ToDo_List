@@ -21,7 +21,8 @@ import javafx.beans.property.SimpleStringProperty;
 public class Client_Model {
 	
 	protected ArrayList<Integer> listIds = new ArrayList<Integer>();
-	protected static ArrayList<ToDo> toDoList = new ArrayList<ToDo>();
+	protected static ArrayList<ToDo>toDoList = new ArrayList<ToDo>();
+	
 
 protected SimpleStringProperty newestMessage = new SimpleStringProperty();
 protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -32,6 +33,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	private String username;
 	private OutputStreamWriter socketOut;
 	private BufferedReader socketIn;
+	private ToDo toDo;
 
 	
 	public void connect(String ipAddress, int port) {
@@ -70,8 +72,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	} */
 
 	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
-		// ToDo toDo = new ToDo(titel, priority, description, dueDate);
-		//return toDo;
+		this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
 		boolean status = false;
 		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
@@ -84,6 +85,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+			Client_Model.toDoList.add(toDo);
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -129,6 +131,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
 			this.token = parts[2];
+			this.username = userName;
 		} 
 		
 		} catch (IOException e) {
@@ -218,16 +221,13 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		System.out.println("Received: " + msg);
 		String[] parts = msg.split("\\|");
 		
-		
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
-
-			
+		for(int i = 2; i < parts.length; i++) {
+		listIds.add(Integer.parseInt(parts[i]));
+			}
 		}
 		
-		for(int i = 2; i < parts.length; i++) {
-			listIds.add(Integer.parseInt(parts[i]));
-		}
 		
 		
 		} catch (IOException e) {
@@ -236,12 +236,10 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		
 	}
 	
-	public static ArrayList<ToDo> getTodolist() {
-		return toDoList;
+	public ArrayList<ToDo> getTodolist() {
+		return Client_Model.toDoList;
 	}
 	
-	public static void addTodolist(ToDo t) {
-			toDoList.add(t);
-	}
+ 	
 	
 }

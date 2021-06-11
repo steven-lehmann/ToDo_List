@@ -9,9 +9,6 @@ import ToDo_Server.ToDo;
 public class ListToDos extends Message {
 	
 	private String token;
-	//private String ids;
-	private int count;
-	//private String newIds;
 	private ArrayList<String> ids = new ArrayList<String>();
 
 	public ListToDos(String[] data) {
@@ -23,10 +20,11 @@ public class ListToDos extends Message {
 	public void process(Client client) {
 		boolean result = false;
 		if (client.getToken().equals(token)) {
-			for(ToDo t : Client_Model.getTodolist()) {
-				if(t.getUsername().equals(client.getAccount().getUsername())) {
-							
+			for(ToDo t : client.getAccount().getToDoList()) {
+				if(t.getUsername().equals(client.getAccount().getUsername())) {		
 					this.ids.add(Integer.toString(t.getID()));
+			
+					
 					
 				}
 			}

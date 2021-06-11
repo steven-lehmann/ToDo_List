@@ -193,21 +193,14 @@ public class Client_Controller {
 			view.chbPriority.getSelectionModel().select(toDo.getPriority());
 			view.dpDueDate.setValue(toDo.getDueDate());
 
-			/*if(toDo.getSharedCheck()) {
-				view.cbShare.setSelected(true);
-			} else {
-				view.cbShare.setSelected(false);
-			}
-
-			view.txtID.setText(String.valueOf(toDo.getID()));
-			//erstellt von*/
 			
+			view.txtCreator.setText(toDo.getUsername());
+			view.txtID.setText(String.valueOf(toDo.getID()));
 		} else {
 			view.txtTitle.setText("");
 			view.txtaDescription.setText("");
 			view.chbPriority.getSelectionModel().select(null);
 			view.dpDueDate.setValue(null);
-			//view.cbShare.setSelected(false);
 			view.txtID.setText("");
 		}
 		
@@ -255,6 +248,11 @@ public class Client_Controller {
 	
 	private void changeViewCreateToDOs(Event e) {
 		view.changeViewCreateToDOs();
+		System.out.println("Hello");
+		for(ToDo test : Client_Model.toDoList) {
+			System.out.println(test.getID());
+		}
+		
 	}
 	
 	private void changeVieMyToDOs(Event e) {
@@ -292,13 +290,16 @@ public class Client_Controller {
 	
 	private void showMyToDos(Event e) throws IOException {
 		model.getMyToDos();
-		
-		for(int i : model.listIds) {
-			for(ToDo t : Client_Model.getTodolist()) {
-				if(t.getID() == i) {
-					view.myList.getItems().addAll(t);
+		view.myList.getItems().clear();
+		for(ToDo t : Client_Model.toDoList) {
+			view.myList.getItems().add(t);
+			
+			
+		/*	for(int id : model.listIds) {
+				if(t.getID() == iD) {
+					view.myList.getItems().add(t);
 				}
-			}
+			} */
 		}
 	}
 }

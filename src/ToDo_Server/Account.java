@@ -22,13 +22,14 @@ public class Account implements Serializable  {
 	private static final int iterations = 127;
 	
 	private static final ArrayList<Account> accounts = new ArrayList<Account>();
+	private static ArrayList<ToDo> toDoList;
 	
 	private final byte[] salt = new byte[64];
 	private String hashedPassword;
 	
 	public Account(String username, String password) {
 		this.username = username;
-		//this.password = password;
+		Account.toDoList = new ArrayList<ToDo>();
 		this.hashedPassword = hash(password);
 		
 	}
@@ -105,5 +106,18 @@ public class Account implements Serializable  {
 		}
 		return new String(hexChars);
 	
+	}
+
+	public ArrayList<ToDo> getToDoList() {
+		return Account.toDoList;
+	}
+
+	public void setToDoList(ArrayList<ToDo> toDoList) {
+		this.toDoList = toDoList;
+	}
+	public static void addToDo(ToDo toDo) {
+		synchronized (toDoList) {
+			toDoList.add(toDo);
+		}
 	}
 }

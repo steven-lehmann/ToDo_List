@@ -1,11 +1,14 @@
 package ToDo_Server;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import message.Message;
 
 
-public class ToDo implements Comparable <ToDo> {
+
+public class ToDo implements Comparable <ToDo>, Sendable{
 	
 	private static int IDNr = -1;
 	private final int ID;
@@ -14,6 +17,13 @@ public class ToDo implements Comparable <ToDo> {
 	private String description;
 	private LocalDate dueDate; 
 	private String username;
+	protected static ArrayList<ToDo> toDoList = new ArrayList<ToDo>();
+
+	public static ArrayList<ToDo> getTodolist() {
+		synchronized (toDoList) {
+		return toDoList;
+		}
+	}
 
 	private static int getNexID() {
 		return ++IDNr;
@@ -115,5 +125,26 @@ public class ToDo implements Comparable <ToDo> {
 		else 
 			return false;
 	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void send(Message msg) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+		
+	public static void addToDo(ToDo toDo) {
+		synchronized (toDoList) {
+			toDoList.add(toDo);
+		}
+	}
+	
 
 }
