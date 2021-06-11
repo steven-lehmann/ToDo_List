@@ -69,9 +69,10 @@ public class Client_View {
 	protected static Image ICONHOMETODO = new Image("/zuruck.png");
 	protected static Image ICONDONE = new Image("/loschen.png");
 	protected static Image ICONSAVE = new Image("/uberpruft.png");
+	protected static Image ICONSHOWTODO = new Image("/show.png");
 	
 	protected ImageView iconBack, iconLogout, iconChangePW, iconAddToDo,
-		iconHome, iconHomeToDo, iconDone, iconSave;
+		iconHome, iconHomeToDo, iconDone, iconSave, iconShowToDo;
 
 	public Client_View(Stage stage, Client_Model model) {
 		this.model = model;
@@ -196,10 +197,10 @@ public class Client_View {
 		this.bottombarMyView.getStyleClass().add("bottombar");
 		
 
-		this.btLogoutMyView = new Button("Logout");
+		/*this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
 		this.btShowMyToDos = new Button("Zeige meine ToDo's");
-		this.btCreateToDo = new Button("+ ToDo");
+		this.btCreateToDo = new Button("+ ToDo");*/
 
 		this.btLogoutMyView = new Button();
 		this.btLogoutMyView.getStyleClass().add("btMyToDo");
@@ -226,6 +227,14 @@ public class Client_View {
 		this.iconAddToDo.setFitWidth(40);
 		
 
+		this.btShowMyToDos = new Button();
+		this.btShowMyToDos.getStyleClass().add("btMyToDo");
+		
+		this.iconShowToDo = new ImageView(ICONSHOWTODO);
+		this.btShowMyToDos.setGraphic(this.iconShowToDo);
+		this.iconShowToDo.setFitHeight(40);
+		this.iconShowToDo.setFitWidth(40);
+		
 		
 		this.lbPortMyView = new Label("Port: ");
 		this.lbPortMyView.getStyleClass().add("lbServerPort");
