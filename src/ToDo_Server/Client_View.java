@@ -476,6 +476,7 @@ public class Client_View {
 
 	public void changeMainView() {
 		stage.setScene(sceneMainView);
+		myList.getItems().clear();
 		stage.show();
 		
 	}

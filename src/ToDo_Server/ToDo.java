@@ -1,6 +1,7 @@
 package ToDo_Server;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -8,8 +9,9 @@ import message.Message;
 
 
 
-public class ToDo implements Comparable <ToDo>, Sendable{
+public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
+	private static final long serialVersionUID = 1;
 	private static int IDNr = -1;
 	private final int ID;
 	private String title;
@@ -17,13 +19,10 @@ public class ToDo implements Comparable <ToDo>, Sendable{
 	private String description;
 	private LocalDate dueDate; 
 	private String username;
-	protected static ArrayList<ToDo> toDoList = new ArrayList<ToDo>();
 
-	public static ArrayList<ToDo> getTodolist() {
-		synchronized (toDoList) {
-		return toDoList;
-		}
-	}
+	
+	private static final ArrayList<ToDo> toDolistServer = new ArrayList<ToDo>();
+
 
 	private static int getNexID() {
 		return ++IDNr;
@@ -139,11 +138,9 @@ public class ToDo implements Comparable <ToDo>, Sendable{
 	}
 	
 	
-		
-	public static void addToDo(ToDo toDo) {
-		synchronized (toDoList) {
-			toDoList.add(toDo);
-		}
+
+	public static ArrayList<ToDo> getTodolistserver() {
+		return toDolistServer;
 	}
 	
 

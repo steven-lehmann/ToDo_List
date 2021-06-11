@@ -20,7 +20,7 @@ public class ListToDos extends Message {
 	public void process(Client client) {
 		boolean result = false;
 		if (client.getToken().equals(token)) {
-			for(ToDo t : client.getAccount().getToDoList()) {
+			for(ToDo t : ToDo.getTodolistserver()) {
 				if(t.getUsername().equals(client.getAccount().getUsername())) {		
 					this.ids.add(Integer.toString(t.getID()));
 			

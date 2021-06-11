@@ -19,6 +19,7 @@ public class Client implements Sendable {
 	private String token = null;
 	private static Logger logger = Logger.getLogger("");
 	private static final ArrayList<Client> clients = new ArrayList<>();
+	
 	/**
 	 * Create a new client object, communicating over the given socket. Immediately
 	 * start a thread to receive messages from the client.

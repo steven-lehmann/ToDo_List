@@ -70,13 +70,27 @@ public class Client_Controller {
 			}
 		});
 		
-		view.myList.setOnMouseClicked(this::showToDo);
+		view.myList.setOnMouseClicked(arg0 -> {
+			try {
+				showToDo(arg0);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		//view.ourList.setOnMouseClicked(this::showOurToDo);
 		
 		//view.btOurToDo2.setOnAction(this::changeViewOurToDOs);
 		
-		view.btDelete.setOnAction(this::deleteToDo);
+		view.btDelete.setOnAction(arg0 -> {
+			try {
+				deleteToDo(arg0);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		view.btLoginUser.setOnAction(arg0 -> {
 			try {
@@ -148,10 +162,11 @@ public class Client_Controller {
 	}
 	
 	
-	private void showToDo(MouseEvent mouseevent1) {
+	private void showToDo(MouseEvent mouseevent1) throws IOException {
 		view.changeViewCreateToDOs();
 		// disable
 		ToDo toDo = (ToDo) view.myList.getSelectionModel().getSelectedItem();
+		model.GeToDo(toDo.getID());
 		this.updateView(toDo);
 		
 	}
@@ -165,27 +180,15 @@ public class Client_Controller {
 		
 	}
 	*/
-	private void deleteToDo(Event e) {
-		/*int id = Integer.parseInt(view.txtID.getText());
-		ToDo toDo = model.getSelectedToDo(id);
-		model.myTreeToDoList.remove(toDo);
+	private void deleteToDo(Event e) throws IOException {
+		int id = Integer.parseInt(view.txtID.getText());
+		model.deleteToDo(id);
 		this.updateView(null);
-		this.updateAllLists();
+		view.changeMainView();
+
 		
 	}
 	
-	private void updateAllLists() {
-		view.myList.getItems().clear();
-		//view.ourList.getItems().clear();
-		for(ToDo t : model.myTreeToDoList) {
-			view.myList.getItems().add(t);
-		}
-		for(ToDo t : model.ourToDoList) {
-			//view.ourList.getItems().add(t);
-		}*/
-		
-	}
-
 	private void updateView(ToDo toDo) {
 		if (toDo != null) {
 			view.txtTitle.setText(toDo.getTitle());
@@ -202,6 +205,7 @@ public class Client_Controller {
 			view.chbPriority.getSelectionModel().select(null);
 			view.dpDueDate.setValue(null);
 			view.txtID.setText("");
+			view.txtCreator.setText("");
 		}
 		
 	}
@@ -263,13 +267,12 @@ public class Client_Controller {
 		view.backToLogin();
 	}
 	private void createAccount (Event e) throws IOException {
+		
 		String name = view.txtUsername.getText();
 		String password = view.txtpPassword.getText();
-		if(password != null && password.length()>= 3) {
-			if (name != null && name.length() >= 3) {
+		if(password != null && password.length()>= 3 & name != null && name.length() >= 3) {
 			Boolean login = model.createAccount(name, password);
 			view.chageViewLogin();
-			}
 		} else {
 			Alert errorAlert = new Alert(AlertType.ERROR);
 			errorAlert.setHeaderText("Password or Username is invalid");

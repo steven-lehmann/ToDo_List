@@ -41,4 +41,6 @@ public class Result extends Message {
 		super(new String[] {"Result", Boolean.toString(result), Integer.toString(ID)});		
 	}
 	
+	
+	
 }

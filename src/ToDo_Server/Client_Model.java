@@ -3,17 +3,13 @@ package ToDo_Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.TreeSet;
 import java.util.logging.Logger;
-
-
 
 
 import javafx.beans.property.SimpleStringProperty;
@@ -85,7 +81,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
-			Client_Model.toDoList.add(toDo);
+			toDoList.add(toDo);
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -239,7 +235,58 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	public ArrayList<ToDo> getTodolist() {
 		return Client_Model.toDoList;
 	}
+
+
+	public void GeToDo(int id) throws IOException {
+		Boolean status = false;
+		String line = "GetToDo|" + this.token + "|" + id;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public void deleteToDo(int id) throws IOException {
+		Boolean status = false;
+		String line = "DeleteToDo|" + this.token + "|" + id;
+		socketOut.write(line + "\n");
+		socketOut.flush();
+		System.out.println("Sent: " + line);
+		String msg = null;
+		try {
+		msg = socketIn.readLine();
+		System.out.println("Received: " + msg);
+		String[] parts = msg.split("\\|");
+		if(parts[1].equalsIgnoreCase("true")) {
+			status = true;
+			for(ToDo t : toDoList) {
+				if(t.getID() == id) {
+					toDoList.remove(t);
+				}
+			}
+		}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
- 	
+	/* public void broadcast(ToDo toDo) {
+		logger.info("Broadcasting message to clients");
+		for (Client c : clients) {
+			c.send(outMsg);
+		}
+	} */
 	
 }

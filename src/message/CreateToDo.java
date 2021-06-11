@@ -38,7 +38,7 @@ public class CreateToDo extends Message {
 					this.username = client.getAccount().getUsername();
 					ToDo toDo = new ToDo(this.title, prio, this.description,localDate, this.username);
 					//Client_Model.getTodolist()
-					client.getAccount().getToDoList().add(toDo);
+					ToDo.getTodolistserver().add(toDo);
 					result = true;
 				}
 			}
