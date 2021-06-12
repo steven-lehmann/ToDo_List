@@ -68,7 +68,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	} */
 
 	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
-		this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
+		//this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
 		boolean status = false;
 		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
@@ -81,7 +81,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
-			toDoList.add(toDo);
+		//	toDoList.add(toDo);
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -219,8 +219,9 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+		
 		for(int i = 2; i < parts.length; i++) {
-		listIds.add(Integer.parseInt(parts[i]));
+			listIds.add(Integer.parseInt(parts[i]));
 			}
 		}
 		

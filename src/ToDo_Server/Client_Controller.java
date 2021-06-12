@@ -252,10 +252,6 @@ public class Client_Controller {
 	
 	private void changeViewCreateToDOs(Event e) {
 		view.changeViewCreateToDOs();
-		System.out.println("Hello");
-		for(ToDo test : Client_Model.toDoList) {
-			System.out.println(test.getID());
-		}
 		
 	}
 	
@@ -294,7 +290,7 @@ public class Client_Controller {
 	private void showMyToDos(Event e) throws IOException {
 		model.getMyToDos();
 		view.myList.getItems().clear();
-		for(ToDo t : Client_Model.toDoList) {
+		for(ToDo t : ToDo.getTodolistserver()) {
 			view.myList.getItems().add(t);
 			
 			
