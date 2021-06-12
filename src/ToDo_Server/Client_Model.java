@@ -69,7 +69,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	} */
 
 	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
-		this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
+		//this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
 		boolean status = false;
 		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
@@ -268,7 +268,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 
-	public void deleteToDo(int id) throws IOException {
+	public void DeleteToDo(int id) throws IOException {
 		Boolean status = false;
 		String line = "DeleteToDo|" + this.token + "|" + id;
 		socketOut.write(line + "\n");

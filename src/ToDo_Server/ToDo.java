@@ -30,7 +30,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 	@Override
 	public String toString() {
-		return title + " Deadline: " + dueDate;
+		return title + " Deadline: " + dueDate + " " +ID;
 	}
 
 	public ToDo(String title, Prio priority, String description, LocalDate dueDate, String username) {
