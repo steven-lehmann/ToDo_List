@@ -31,9 +31,11 @@ public class Client_Controller {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			}
 		});
 		
+		view.btBack.setOnAction(this::backToLogin);
 		
 		view.stage.setOnCloseRequest( event -> model.disconnect() );
 		
@@ -145,8 +147,12 @@ public class Client_Controller {
 	private void logOut(Event e) throws IOException {
 		model.logOut();
 		view.backToLogin();
+		view.txtUsernameLogin.clear();
+		view.txtpPasswordLogin.clear();
+		
 	}
 	private void loginClient(Event e) throws IOException {
+		view.myList.getItems().clear();
 		String userName = view.txtUsernameLogin.getText();
 		String password = view.txtpPasswordLogin.getText();
 		Boolean passwordCheck = model.login(userName, password);
@@ -197,9 +203,8 @@ public class Client_Controller {
 	private void deleteToDo(Event e) throws IOException {
 		int id = Integer.parseInt(view.txtID.getText());
 		model.DeleteToDo(id);
-		
-		this.updateView(null);
 		view.changeMainView();
+		this.updateView(null);
 
 		
 	}
@@ -257,26 +262,39 @@ public class Client_Controller {
 	
 	private void changeViewRegistration (Event e) {
 		view.changeViewRegistration();
+		view.txtUsername.clear();
+		view.txtpPassword.clear();
 	}
 	
 	private void changeViewPW(Event e) {
+		view.btChangePassword.setDisable(false);
 		view.changeViewPW();
 	}
 	
 	private void changeViewCreateToDOs(Event e) {
+		view.txtTitle.setDisable(false);
+		view.txtaDescription.setDisable(false);
+		view.chbPriority.setDisable(false);
+		view.dpDueDate.setDisable(false);
+		view.btDelete.setDisable(true);
+		view.btSave.setDisable(false);
 		view.changeViewCreateToDOs();
+		updateView(null);
 		
 	}
 	
 	private void changeVieMyToDOs(Event e) {
 		view.changeViewMyToDOs();
+		view.myList.getItems().clear();
 	}
 	
 	private void backToLogin(Event e) {
 		view.backToLogin();
+		view.txtUsernameLogin.clear();
+		view.txtpPasswordLogin.clear();
+		
 	}
 	private void createAccount (Event e) throws IOException {
-		
 		String name = view.txtUsername.getText();
 		String password = view.txtpPassword.getText();
 		if(password != null && password.length()>= 3 & name != null && name.length() >= 3) {
@@ -293,6 +311,7 @@ public class Client_Controller {
 	private void changePassword(Event e) throws IOException {
 		String newPW = view.txtNewPW.getText();
 		model.newPassword(newPW);
+		view.btChangePassword.setDisable(true);
 		
 	}
 	
@@ -301,19 +320,20 @@ public class Client_Controller {
 	}
 	
 	private void showMyToDos(Event e) throws IOException {
+		
 		String idLine = model.getMyToDos();
 		view.myList.getItems().clear();
 		String[] parts = idLine.split("\\|");
 		for(int i = 0; i< parts.length; i++) {
 			view.myList.getItems().add(parts[i]);
-		}
 		
-			
-		/*	for(int id : model.listIds) {
-				if(t.getID() == iD) {
-					view.myList.getItems().add(t);
-				}
-			} */
+		}
+		view.btSave.setDisable(true);
+		view.btDelete.setDisable(false);
+		view.txtTitle.setDisable(true);
+		view.txtaDescription.setDisable(true);
+		view.chbPriority.setDisable(true);
+		view.dpDueDate.setDisable(true);
 		}
 	
 }

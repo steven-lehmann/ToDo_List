@@ -185,6 +185,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 	public boolean newPassword(String newPW) throws IOException {
+		
 		boolean status = false; 
 		String line = "ChangePassword|" + this.token + "|" + newPW;
 		socketOut.write(line + "\n");
@@ -268,7 +269,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 
-	public void DeleteToDo(int id) throws IOException {
+	public synchronized void DeleteToDo(int id) throws IOException {
 		Boolean status = false;
 		String line = "DeleteToDo|" + this.token + "|" + id;
 		socketOut.write(line + "\n");

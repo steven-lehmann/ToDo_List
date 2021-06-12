@@ -384,9 +384,10 @@ public class Client_View {
 		dpDueDate.setEditable(false);
 		
 		this.txtID = new TextField();
-		this.txtCreator = new TextField();
-		this.txtCreator.getStyleClass().add("fieldsToDo");
-		this.txtCreator.setEditable(false);
+		this.txtID.setVisible(false);
+		//this.txtCreator = new TextField();
+		//this.txtCreator.getStyleClass().add("fieldsToDo");
+		//this.txtCreator.setEditable(false);
 		/*this.dpCreateDate = new DatePicker();
 		this.dpCreateDate.setEditable(false);*/
 		this.chbPriority = new ChoiceBox <Prio>();
@@ -401,8 +402,8 @@ public class Client_View {
 		this.centerToDo.add(this.chbPriority, 1, 2);
 		this.centerToDo.add(this.lbDueDate, 0, 3);
 		this.centerToDo.add(this.dpDueDate, 1, 3);
-		this.centerToDo.add(this.lbCreator, 0, 4);
-		this.centerToDo.add(this.txtCreator, 1, 4);
+		//this.centerToDo.add(this.lbCreator, 0, 4);
+		//this.centerToDo.add(this.txtCreator, 1, 4);
 		this.centerToDo.add(this.txtID, 1, 6);
 		//this.centerToDo.add(this.lbCreateDate, 0, 6);
 		//this.centerToDo.add(this.dpCreateDate, 1, 6);
@@ -507,6 +508,8 @@ public class Client_View {
 		stage.show();
 		
 	}
+
+
 	
 
 }

@@ -19,23 +19,18 @@ public class DeleteToDo extends Message {
 	public void process(Client client) {
 		boolean result = false; 
 		if(client.getToken().equals(token)) {
-			
 			for(ToDo t : ToDo.getTodolistserver())  {
-				System.out.println(t);
+				System.out.println(t + "\n");
 				if(t.getID() == Integer.parseInt(id)) {
-					ToDo.getTodolistserver().remove(t);
-					result = true;
-				} 
 					if(t.getUsername().equals(client.getAccount().getUsername())) {
 						logger.info("what is t:" + t.toString());
-						int index = ToDo.getTodolistserver().indexOf(t);
-						
 						ToDo.getTodolistserver().remove(t);
 						logger.info("what is deleted :" + t);
 						logger.info("Did it work : " + ToDo.getTodolistserver().remove(t));
 						result = true;
-					}
+				} 
 				}
+			}
 			}
 		client.send(new Result(result));
 	}

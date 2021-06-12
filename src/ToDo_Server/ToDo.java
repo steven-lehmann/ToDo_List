@@ -4,6 +4,7 @@ package ToDo_Server;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import message.Message;
 
@@ -21,7 +22,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	private String username;
 
 	
-	protected static ArrayList<ToDo> toDolistServer = new ArrayList<ToDo>();
+	protected static TreeSet<ToDo> toDolistServer = new TreeSet<ToDo>();
 
 
 	private static int getNexID() {
@@ -139,7 +140,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 	
 
-	public static ArrayList<ToDo> getTodolistserver() {
+	public static TreeSet<ToDo> getTodolistserver() {
 		return toDolistServer;
 	}
 	
