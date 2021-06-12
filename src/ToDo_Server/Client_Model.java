@@ -17,6 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Client_Model {
 	
 	protected ArrayList<Integer> listIds = new ArrayList<Integer>();
+	
 	protected static ArrayList<ToDo>toDoList = new ArrayList<ToDo>();
 	
 
@@ -68,7 +69,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	} */
 
 	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
-		//this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
+		this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
 		boolean status = false;
 		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
@@ -204,7 +205,8 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 
-	public void getMyToDos() throws IOException {
+	public String getMyToDos() throws IOException {
+		String idLine = "";
 		boolean status = false;
 		String line = "ListToDos|" + this.token;
 		socketOut.write(line + "\n");
@@ -221,8 +223,10 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 			status = true;
 		
 		for(int i = 2; i < parts.length; i++) {
-			listIds.add(Integer.parseInt(parts[i]));
+				idLine += parts[i] + "|";
 			}
+		
+		
 		}
 		
 		
@@ -230,6 +234,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return idLine;
 		
 	}
 	
@@ -238,7 +243,8 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 
-	public void GeToDo(int id) throws IOException {
+	public String GeToDo(int id) throws IOException {
+		String toDo = "";
 		Boolean status = false;
 		String line = "GetToDo|" + this.token + "|" + id;
 		socketOut.write(line + "\n");
@@ -251,10 +257,14 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+			for(int i = 2; i < parts.length; i++) {
+				toDo += parts[i] + "|";
+			}
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return toDo;
 	}
 
 
@@ -271,15 +281,12 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
-			for(ToDo t : toDoList) {
-				if(t.getID() == id) {
-					toDoList.remove(t);
-				}
-			}
+			
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		
 	}
 	

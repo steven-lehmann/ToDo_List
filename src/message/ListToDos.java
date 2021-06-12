@@ -10,6 +10,7 @@ public class ListToDos extends Message {
 	
 	private String token;
 	private ArrayList<String> ids = new ArrayList<String>();
+	private ArrayList<String> toDos = new ArrayList<String>();
 
 	public ListToDos(String[] data) {
 		super(data);
@@ -23,7 +24,8 @@ public class ListToDos extends Message {
 			for(ToDo t : ToDo.getTodolistserver()) {
 				if(t.getUsername().equals(client.getAccount().getUsername())) {		
 					this.ids.add(Integer.toString(t.getID()));
-			
+					this.toDos.add(t.toString());
+
 					
 					
 				}

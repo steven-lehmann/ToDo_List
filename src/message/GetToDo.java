@@ -21,7 +21,7 @@ public class GetToDo extends Message {
 		if(client.getToken().equals(token)) {
 			for(ToDo t : ToDo.getTodolistserver()) {
 				if(t.getID() == Integer.parseInt(id)) {
-				line = t.getTitle() + "|" + t.getPriority() + "|" + 
+				line = Integer.toString(t.getID()) + "|" + t.getTitle() + "|" + t.getPriority() + "|" + 
 						t.getDescription() + "|" + t.getDueDate();
 				}
 			}

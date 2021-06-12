@@ -35,7 +35,7 @@ public class Client_View {
 	
 	protected HBox spacer, spacer2, bottom;
 	
-	protected ListView <ToDo> myList;
+	protected ListView <String> myList;
 	
 	protected ToolBar toolbarMyView, toolbarPWView, bottombarMyView, bottombarChangePW, toolbarToDo, bottombarToDo;
 	
@@ -188,7 +188,7 @@ public class Client_View {
 		this.myToDoView = new BorderPane();
 		this.myToDoView.getStyleClass().add("myToDoView");
 		
-		this.myList = new ListView <ToDo>();
+		this.myList = new ListView <String>();
 		this.myList.getStyleClass().add("myList");
 		
 		this.toolbarMyView = new ToolBar();

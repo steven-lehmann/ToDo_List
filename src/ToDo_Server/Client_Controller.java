@@ -164,12 +164,26 @@ public class Client_Controller {
 	
 	private void showToDo(MouseEvent mouseevent1) throws IOException {
 		view.changeViewCreateToDOs();
+		String id = view.myList.getSelectionModel().getSelectedItem();
+		String toDoLine = model.GeToDo(Integer.parseInt(id));
+		
+		
+		String[] parts = toDoLine.split("\\|");
+			view.txtID.setText(parts[0]);
+			view.txtTitle.setText(parts[1]);
+			Prio prio = Prio.valueOf(parts[2]);
+			view.chbPriority.getSelectionModel().select(prio);
+			view.txtaDescription.setText(parts[3]);
+			LocalDate localDate = LocalDate.parse(parts[4]);
+			view.dpDueDate.setValue(localDate);
+	
+	}
 		// disable
-		ToDo toDo = (ToDo) view.myList.getSelectionModel().getSelectedItem();
+		/* ToDo toDo = (ToDo) view.myList.getSelectionModel().getSelectedItem();
 		model.GeToDo(toDo.getID());
 		this.updateView(toDo);
-		
-	}
+		*/
+
 	
 	/*
 	private void showOurToDo(MouseEvent mouseevent1) {
@@ -183,6 +197,7 @@ public class Client_Controller {
 	private void deleteToDo(Event e) throws IOException {
 		int id = Integer.parseInt(view.txtID.getText());
 		model.deleteToDo(id);
+		
 		this.updateView(null);
 		view.changeMainView();
 
@@ -196,7 +211,6 @@ public class Client_Controller {
 			view.chbPriority.getSelectionModel().select(toDo.getPriority());
 			view.dpDueDate.setValue(toDo.getDueDate());
 
-			
 			view.txtCreator.setText(toDo.getUsername());
 			view.txtID.setText(String.valueOf(toDo.getID()));
 		} else {
@@ -217,7 +231,6 @@ public class Client_Controller {
 		Prio priority = view.chbPriority.getSelectionModel().getSelectedItem();
 		String description = view.txtaDescription.getText();
 		LocalDate dueDate = view.dpDueDate.getValue();
-		
 		model.createToDo(titel, priority, description, dueDate);
 		
 	/*	ToDo toDo = model.createToDo(titel, priority, description, dueDate);
@@ -288,11 +301,13 @@ public class Client_Controller {
 	}
 	
 	private void showMyToDos(Event e) throws IOException {
-		model.getMyToDos();
+		String idLine = model.getMyToDos();
 		view.myList.getItems().clear();
-		for(ToDo t : ToDo.getTodolistserver()) {
-			view.myList.getItems().add(t);
-			
+		String[] parts = idLine.split("\\|");
+		for(int i = 0; i< parts.length; i++) {
+			view.myList.getItems().add(parts[i]);
+		}
+		
 			
 		/*	for(int id : model.listIds) {
 				if(t.getID() == iD) {
@@ -300,5 +315,5 @@ public class Client_Controller {
 				}
 			} */
 		}
-	}
+	
 }

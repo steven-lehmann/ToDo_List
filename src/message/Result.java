@@ -27,6 +27,9 @@ public class Result extends Message {
 		super(new String[] {"Result",Boolean.toString(result)}, list);		
 	}
 	
+	
+	
+	
 	/**
 	 * This message type does no processing at all
 	 */

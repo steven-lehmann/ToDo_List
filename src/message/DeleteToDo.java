@@ -19,7 +19,9 @@ public class DeleteToDo extends Message {
 		if(client.getToken().equals(token)) {
 			for(ToDo t : ToDo.getTodolistserver()) {
 				if(t.getID() == Integer.parseInt(id)) {
-					ToDo.getTodolistserver().remove(id);
+					int index = ToDo.getTodolistserver().indexOf(t);
+					ToDo.getTodolistserver().remove(index);
+					
 					result = true;
 				}
 			}
