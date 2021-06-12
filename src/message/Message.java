@@ -69,6 +69,7 @@ public abstract class Message {
 				Class<?> messageClass = Class.forName(messageClassName);
 				Constructor<?> constructor = messageClass.getConstructor(String[].class);
 				msg = (Message) constructor.newInstance(new Object[] { parts });
+				logger.info("Received message :" + msg);
 				logger.info("Received message of type " + parts[0]);
 			} catch (Exception e) {
 				logger.warning("Received invalid message of type " + parts[0]);

@@ -196,7 +196,7 @@ public class Client_Controller {
 	*/
 	private void deleteToDo(Event e) throws IOException {
 		int id = Integer.parseInt(view.txtID.getText());
-		model.deleteToDo(id);
+		model.DeleteToDo(id);
 		
 		this.updateView(null);
 		view.changeMainView();

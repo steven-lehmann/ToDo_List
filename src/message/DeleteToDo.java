@@ -2,8 +2,10 @@ package message;
 
 import ToDo_Server.Client;
 import ToDo_Server.ToDo;
+import java.util.logging.Logger;
 
 public class DeleteToDo extends Message {
+	public static Logger logger = Logger.getLogger("");
 	private String token;
 	private String id; 
 
@@ -23,8 +25,16 @@ public class DeleteToDo extends Message {
 				if(t.getID() == Integer.parseInt(id)) {
 					ToDo.getTodolistserver().remove(t);
 					result = true;
-					
 				} 
+					if(t.getUsername().equals(client.getAccount().getUsername())) {
+						logger.info("what is t:" + t.toString());
+						int index = ToDo.getTodolistserver().indexOf(t);
+						
+						ToDo.getTodolistserver().remove(t);
+						logger.info("what is deleted :" + t);
+						logger.info("Did it work : " + ToDo.getTodolistserver().remove(t));
+						result = true;
+					}
 				}
 			}
 		client.send(new Result(result));

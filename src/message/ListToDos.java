@@ -33,6 +33,6 @@ public class ListToDos extends Message {
 			result = true;
 		}
 		
-		client.send(new Result(result, ids));
+		client.send(new Result(result, ids                  ));
 	}
 }
