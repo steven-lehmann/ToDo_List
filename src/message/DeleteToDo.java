@@ -17,16 +17,16 @@ public class DeleteToDo extends Message {
 	public void process(Client client) {
 		boolean result = false; 
 		if(client.getToken().equals(token)) {
-			for(ToDo t : ToDo.getTodolistserver()) {
+			
+			for(ToDo t : ToDo.getTodolistserver())  {
+				System.out.println(t);
 				if(t.getID() == Integer.parseInt(id)) {
-					int index = ToDo.getTodolistserver().indexOf(t);
-					ToDo.getTodolistserver().remove(index);
-					
+					ToDo.getTodolistserver().remove(t);
 					result = true;
+					
+				} 
 				}
 			}
-		}
-		
 		client.send(new Result(result));
 	}
 

@@ -21,7 +21,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	private String username;
 
 	
-	private static final ArrayList<ToDo> toDolistServer = new ArrayList<ToDo>();
+	protected static ArrayList<ToDo> toDolistServer = new ArrayList<ToDo>();
 
 
 	private static int getNexID() {

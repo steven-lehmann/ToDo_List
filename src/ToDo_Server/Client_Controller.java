@@ -285,7 +285,7 @@ public class Client_Controller {
 		} else {
 			Alert errorAlert = new Alert(AlertType.ERROR);
 			errorAlert.setHeaderText("Password or Username is invalid");
-			errorAlert.setContentText("username and password must be equal or greater than 3");
+			errorAlert.setContentText("Username and Password must be equal or greater than 3");
 			errorAlert.showAndWait();
 		}
 	}
