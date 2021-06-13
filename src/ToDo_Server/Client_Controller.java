@@ -2,6 +2,7 @@ package ToDo_Server;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javafx.event.Event;
 import javafx.scene.control.Alert;
@@ -176,7 +177,6 @@ public class Client_Controller {
 		String id = view.myList.getSelectionModel().getSelectedItem();
 		String toDoLine = model.GeToDo(Integer.parseInt(id));
 		
-		
 		String[] parts = toDoLine.split("\\|");
 			view.txtID.setText(parts[0]);
 			view.txtTitle.setText(parts[1]);
@@ -187,25 +187,13 @@ public class Client_Controller {
 			view.dpDueDate.setValue(localDate);
 		} catch (NumberFormatException e) {
 			
+		} catch (DateTimeParseException ex) {
+				view.dpDueDate.setValue(null);
 		}
-	
-	}
-		// disable
-		/* ToDo toDo = (ToDo) view.myList.getSelectionModel().getSelectedItem();
-		model.GeToDo(toDo.getID());
-		this.updateView(toDo);
-		*/
-
-	
-	/*
-	private void showOurToDo(MouseEvent mouseevent1) {
-		view.changeViewCreateToDOs();
-		// disable
-		ToDo toDo = (ToDo) view.ourList.getSelectionModel().getSelectedItem();
-		this.updateView(toDo);
 		
+	
 	}
-	*/
+		
 	private void deleteToDo(Event e) throws IOException {
 		try {
 		int id = Integer.parseInt(view.txtID.getText());
@@ -244,29 +232,19 @@ public class Client_Controller {
 	
 
 	private void saveNewToDo(Event e) throws IOException {
-		String titel = view.txtTitle.getText();
+		String title = view.txtTitle.getText();
 		Prio priority = view.chbPriority.getSelectionModel().getSelectedItem();
 		String description = view.txtaDescription.getText();
 		LocalDate dueDate = view.dpDueDate.getValue();
-		model.createToDo(titel, priority, description, dueDate);
-		
-	/*	ToDo toDo = model.createToDo(titel, priority, description, dueDate);
-		model.myTreeToDoList.add(toDo);
-		/*if (view.cbShare.isSelected()) {
-			model.ourToDoList.add(toDo);
-			toDo.setSharedCheck(true);
-		}
-	
-		view.myList.getItems().clear();
-		for(ToDo t : model.myTreeToDoList) {
-			view.myList.getItems().add(t);
+		if(title.length()>= 3) {
+		model.createToDo(title, priority, description, dueDate);
+		}else {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Title is invalid");
+			errorAlert.setContentText("Title must be equal or greater than 3 characters");
+			errorAlert.showAndWait();
 		}
 		
-		/*view.ourList.getItems().clear();
-		for(ToDo t : model.ourToDoList) {
-			view.ourList.getItems().add(t);
-		}
-		*/
 	
 		view.changeMainView();
 		

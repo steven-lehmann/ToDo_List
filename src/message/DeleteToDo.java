@@ -21,13 +21,9 @@ public class DeleteToDo extends Message {
 		boolean result = false; 
 		if(client.getToken().equals(token)) {
 			for(ToDo t : Client_Model.getTodolistserver())  {
-				System.out.println(t + "\n");
 				if(t.getID() == Integer.parseInt(id)) {
 					if(t.getUsername().equals(client.getAccount().getUsername())) {
-						logger.info("what is t:" + t.toString());
 						Client_Model.getTodolistserver().remove(t);
-						logger.info("what is deleted :" + t);
-						logger.info("Did it work : " + Client_Model.getTodolistserver().remove(t));
 						result = true;
 				} 
 				}

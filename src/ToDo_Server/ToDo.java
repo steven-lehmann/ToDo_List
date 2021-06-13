@@ -36,7 +36,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 
 
-	public ToDo(String title, Prio priority, String description, LocalDate dueDate, String username) {
+	public ToDo(String title, Prio priority, String description, String username, LocalDate dueDate) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;

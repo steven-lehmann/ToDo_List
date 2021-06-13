@@ -22,9 +22,7 @@ public class ListToDos extends Message {
 		boolean result = false;
 		if (client.getToken().equals(token)) {
 			for(ToDo t : Client_Model.getTodolistserver()) {
-				System.out.println("RIP" + t.getUsername());
 				if(t.getUsername().equals(client.getAccount().getUsername())) {	
-					System.out.println("lÄUFT");
 					this.ids.add(Integer.toString(t.getID()));
 					
 
@@ -36,6 +34,5 @@ public class ListToDos extends Message {
 		}
 		
 		client.send(new Result(result, ids));
-		System.out.println("dOCH NID rIP");
 	}
 }
