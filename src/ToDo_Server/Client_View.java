@@ -45,8 +45,8 @@ public class Client_View {
 	protected Label lbRegistration, lbUsername, lbUserPassword, lbLogin, lbUsernameLogin, lbUserPasswordLogin,
 			lbIpAddress, lbPort, lbPortMyView, lbPortNrMyView, lbPortPWView, lbPortNrPWView,
 			lbServerMyView, lbServerIPMyView, lbServerPWView, lbServerIPPWView, lbTitle, lbDescription,
-			lbDueDate, lbShare, lbCreator, lbCreateDate, lbPriority, lbNoAccount, lbChangePW, 
-			lbNewPW, lbServer, lbMyListID;
+			lbDueDate, lbShare, lbPriority, lbNoAccount, lbChangePW, 
+			lbNewPW, lbServer, lbMyListID, lbPflichtfelder;
 	
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPPWVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNRPWVIEW = "50002"; 
@@ -201,13 +201,7 @@ public class Client_View {
 		this.toolbarMyView.getStyleClass().add("toolbarMyView");
 		this.bottombarMyView = new ToolBar();
 		this.bottombarMyView.getStyleClass().add("bottombar");
-		
 
-		
-		/*this.btLogoutMyView = new Button("Logout");
-		this.btChangePassword = new Button("Passwort ändern");
-		this.btShowMyToDos = new Button("Zeige meine ToDo's");
-		this.btCreateToDo = new Button("+ ToDo");*/
 
 		this.btLogoutMyView = new Button();
 		this.btLogoutMyView.getStyleClass().add("btMyToDo");
@@ -363,17 +357,16 @@ public class Client_View {
 		this.bottom.getChildren().add(this.btDelete);
 		this.bottom.getStyleClass().add("bottom");
 		
-		this.lbTitle = new Label("Titel");
+		this.lbTitle = new Label("Titel *");
 		this.lbTitle.getStyleClass().add("lbToDoForm");
-		this.lbDescription = new Label("Beschreibung");
+		this.lbDescription = new Label("Beschreibung *");
 		this.lbDescription.getStyleClass().add("lbToDoForm");
 		this.lbDueDate = new Label("Fälligkeitsdatum");
 		this.lbDueDate.getStyleClass().add("lbToDoForm");
-		this.lbCreator = new Label("Erstellt von");
-		this.lbCreator.getStyleClass().add("lbToDoForm");
-		//this.lbCreateDate = new Label("Erstellt am");
-		this.lbPriority = new Label("Priorität");
+		this.lbPriority = new Label("Priorität *");
 		this.lbPriority.getStyleClass().add("lbToDoForm");
+		this.lbPflichtfelder = new Label("* Pflichtfeld");
+		this.lbPflichtfelder.getStyleClass().add("lbPflichtfeld");
 		
 		this.txtTitle = new TextField();
 		this.txtTitle.getStyleClass().add("fieldsToDo");
@@ -396,11 +389,7 @@ public class Client_View {
 		
 		this.txtID = new TextField();
 		this.txtID.setVisible(false);
-		//this.txtCreator = new TextField();
-		//this.txtCreator.getStyleClass().add("fieldsToDo");
-		//this.txtCreator.setEditable(false);
-		/*this.dpCreateDate = new DatePicker();
-		this.dpCreateDate.setEditable(false);*/
+		
 		this.chbPriority = new ChoiceBox <Prio>();
 		this.chbPriority.getStyleClass().add("fieldsToDo");
 		this.chbPriority.getItems().addAll(Prio.values());
@@ -413,11 +402,8 @@ public class Client_View {
 		this.centerToDo.add(this.chbPriority, 1, 2);
 		this.centerToDo.add(this.lbDueDate, 0, 3);
 		this.centerToDo.add(this.dpDueDate, 1, 3);
-		//this.centerToDo.add(this.lbCreator, 0, 4);
-		//this.centerToDo.add(this.txtCreator, 1, 4);
 		this.centerToDo.add(this.txtID, 1, 6);
-		//this.centerToDo.add(this.lbCreateDate, 0, 6);
-		//this.centerToDo.add(this.dpCreateDate, 1, 6);
+		this.centerToDo.add(this.lbPflichtfelder, 0, 7);
 		
 		
 		this.toolbarToDo.getItems().addAll(this.btHome, this.spacer, this.btSave);

@@ -236,3 +236,7 @@
 .fieldsToDo{
 	-fx-max-width: 400;
 }
+
+.lbPflichtfeld{
+	-fx-font-size: 12;
+}
