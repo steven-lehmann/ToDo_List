@@ -19,7 +19,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Priority;;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;;
 
 public class Client_View {
 	
@@ -35,6 +36,8 @@ public class Client_View {
 	
 	protected HBox spacer, spacer2, bottom;
 	
+	protected VBox myListCenter;
+	
 	protected ListView <String> myList;
 	
 	protected ToolBar toolbarMyView, toolbarPWView, bottombarMyView, bottombarChangePW, toolbarToDo, bottombarToDo;
@@ -43,7 +46,7 @@ public class Client_View {
 			lbIpAddress, lbPort, lbPortMyView, lbPortNrMyView, lbPortPWView, lbPortNrPWView,
 			lbServerMyView, lbServerIPMyView, lbServerPWView, lbServerIPPWView, lbTitle, lbDescription,
 			lbDueDate, lbShare, lbCreator, lbCreateDate, lbPriority, lbNoAccount, lbChangePW, 
-			lbNewPW, lbServer;
+			lbNewPW, lbServer, lbMyListID;
 	
 	protected final String SERVERIPMYVIEW = "127.0.0.1", SEREVRIPPWVIEW = "127.0.0.1", PORTNRMYVIEW = "50002",
 				PORTNRPWVIEW = "50002"; 
@@ -191,12 +194,16 @@ public class Client_View {
 		this.myList = new ListView <String>();
 		this.myList.getStyleClass().add("myList");
 		
+		this.myListCenter = new VBox();
+		this.myListCenter.getStyleClass().add("myListCenter");
+		
 		this.toolbarMyView = new ToolBar();
 		this.toolbarMyView.getStyleClass().add("toolbarMyView");
 		this.bottombarMyView = new ToolBar();
 		this.bottombarMyView.getStyleClass().add("bottombar");
 		
 
+		
 		/*this.btLogoutMyView = new Button("Logout");
 		this.btChangePassword = new Button("Passwort ändern");
 		this.btShowMyToDos = new Button("Zeige meine ToDo's");
@@ -244,13 +251,17 @@ public class Client_View {
 		this.lbServerMyView.getStyleClass().add("lbServerPort");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
 		this.lbServerIPMyView.getStyleClass().add("lbServerPort");
+		this.lbMyListID = new Label("Meine ToDo ID:");
+		this.lbMyListID.getStyleClass().add("lbMyListID");
+		
+		this.myListCenter.getChildren().addAll(this.lbMyListID, this.myList);
 		
 		this.toolbarMyView.getItems().addAll(this.btLogoutMyView, this.btChangePassword, this.btShowMyToDos, this.btCreateToDo);
 		this.bottombarMyView.getItems().addAll(this.lbPortMyView, this.lbPortNrMyView, this.lbServerMyView, this.lbServerIPMyView);	
 		
 		
 		this.myToDoView.setTop(this.toolbarMyView);
-		this.myToDoView.setCenter(this.myList);
+		this.myToDoView.setCenter(this.myListCenter);
 		this.myToDoView.setBottom(this.bottombarMyView);
 		
 		

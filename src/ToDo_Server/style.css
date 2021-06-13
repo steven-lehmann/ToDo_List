@@ -104,6 +104,31 @@
 	-fx-background-color: #f8f8ff;
 }
 
+.myList .list-cell:even {
+	-fx-background-color: #d2f0fc;
+	-fx-text-fill: black;
+}
+
+.myList .list-cell:odd {
+	-fx-background-color: #f8f8ff;
+	-fx-text-fill: black;
+}
+
+.myList .list-cell:selected {
+	-fx-background-color: #96abff;
+	-fx-text-fill: black;
+}
+
+
+.lbMyListID{
+	-fx-font-size: 24;
+}
+
+.myListCenter{
+	-fx-spacing: 10;
+	-fx-padding: 5;
+}
+
 .toolbarMyView{
 	-fx-padding: 10;
 	-fx-spacing: 10;
