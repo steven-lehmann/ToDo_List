@@ -1,8 +1,8 @@
-Team-Members: Gowsigan Gowribalan, Femin Jose Kunnathuparambil, Steven Lehmann
+**Team-Members:** Gowsigan Gowribalan, Femin Jose Kunnathuparambil, Steven Lehmann
 
-JavaFX Version: JavaFX 15
+**JavaFX Version:** JavaFX 15
 
-Features:
+**Features:**
 
 1. Be able to serve multiple clients in parallel (like a web server)
 2. Implement all of the API commands as described
@@ -13,4 +13,4 @@ Features:
 7. Hash the passwords
 8. Use realtokens for user login (big random number)
 9. MVC client that supports all API features (+ support due-dates)
-10. Nice GUI: Display all ToDo entries in a list, Validate all(username, password, ToDo-title) input data (on the client)
+10. Nice GUI: Display all ToDo entries in a list, Validate all(username, password, ToDo-title, dueDate today or in the future) input data (on the client)
