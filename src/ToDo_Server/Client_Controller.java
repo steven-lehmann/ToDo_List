@@ -26,13 +26,20 @@ public class Client_Controller {
 			String ipAddress = view.txtIpAddress.getText();
 			int port = Integer.parseInt(view.txtPort.getText());
 			model.connect(ipAddress, port);
-			view.backToLogin();
 			try {
 				model.connectionControl();
+				view.backToLogin();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				
+			} catch (NullPointerException ex) {
+				Alert errorAlert = new Alert(AlertType.ERROR);
+				errorAlert.setHeaderText("Invalid port number");
+				errorAlert.setContentText("Please use the correct port number");
+				errorAlert.showAndWait();
+				view.changeToRootView();
+				view.txtPort.clear();
+				view.txtIpAddress.clear();
 			}
 		});
 		

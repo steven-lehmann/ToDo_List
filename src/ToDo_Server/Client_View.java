@@ -245,7 +245,7 @@ public class Client_View {
 		this.lbServerMyView.getStyleClass().add("lbServerPort");
 		this.lbServerIPMyView = new Label(this.SERVERIPMYVIEW);
 		this.lbServerIPMyView.getStyleClass().add("lbServerPort");
-		this.lbMyListID = new Label("Meine ToDo ID:");
+		this.lbMyListID = new Label("Meine ToDo ID(s):");
 		this.lbMyListID.getStyleClass().add("lbMyListID");
 		
 		this.myListCenter.getChildren().addAll(this.lbMyListID, this.myList);
@@ -502,6 +502,13 @@ public class Client_View {
 
 	public void changeViewMyToDOs() {
 		stage.setScene(sceneMainView);
+		stage.show();
+		
+	}
+
+
+	public void changeToRootView() {
+		stage.setScene(sceneRoot);
 		stage.show();
 		
 	}
