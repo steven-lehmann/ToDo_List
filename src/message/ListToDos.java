@@ -10,7 +10,7 @@ public class ListToDos extends Message {
 	
 	private String token;
 	private ArrayList<String> ids = new ArrayList<String>();
-	private ArrayList<String> toDos = new ArrayList<String>();
+
 
 	public ListToDos(String[] data) {
 		super(data);
@@ -21,10 +21,12 @@ public class ListToDos extends Message {
 	public void process(Client client) {
 		boolean result = false;
 		if (client.getToken().equals(token)) {
-			for(ToDo t : ToDo.getTodolistserver()) {
-				if(t.getUsername().equals(client.getAccount().getUsername())) {		
+			for(ToDo t : Client_Model.getTodolistserver()) {
+				System.out.println("RIP" + t.getUsername());
+				if(t.getUsername().equals(client.getAccount().getUsername())) {	
+					System.out.println("lÄUFT");
 					this.ids.add(Integer.toString(t.getID()));
-					this.toDos.add(t.toString());
+					
 
 					
 					
@@ -33,6 +35,7 @@ public class ListToDos extends Message {
 			result = true;
 		}
 		
-		client.send(new Result(result, ids                  ));
+		client.send(new Result(result, ids));
+		System.out.println("dOCH NID rIP");
 	}
 }

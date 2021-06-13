@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 
@@ -31,6 +32,8 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	private OutputStreamWriter socketOut;
 	private BufferedReader socketIn;
 	private ToDo toDo;
+
+	protected static TreeSet<ToDo> toDolistServer = new TreeSet<ToDo>();
 
 	
 	public void connect(String ipAddress, int port) {
@@ -69,7 +72,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	} */
 
 	public void createToDo(String titel, Prio priority, String description, LocalDate dueDate) throws IOException {
-		//this.toDo = new ToDo(titel, priority, description, dueDate, this.username);
+		synchronized (toDolistServer) {
 		boolean status = false;
 		String line = "CreateToDo|" + this.token + "|" + titel + "|" + priority + "|" + description + "|" + dueDate;
 		socketOut.write(line + "\n");
@@ -82,13 +85,12 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
-		//	toDoList.add(toDo);
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
+}
 
 	public boolean createAccount(String name, String password) throws IOException {
 	boolean status = false; 
@@ -177,6 +179,7 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 		String[] parts = msg.split("\\|");
 		if(parts[1].equalsIgnoreCase("true")) {
 			status = true;
+		
 		}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -185,7 +188,6 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 	public boolean newPassword(String newPW) throws IOException {
-		
 		boolean status = false; 
 		String line = "ChangePassword|" + this.token + "|" + newPW;
 		socketOut.write(line + "\n");
@@ -269,7 +271,8 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 	}
 
 
-	public synchronized void DeleteToDo(int id) throws IOException {
+	public void DeleteToDo(int id) throws IOException {
+		synchronized (toDolistServer) {
 		Boolean status = false;
 		String line = "DeleteToDo|" + this.token + "|" + id;
 		socketOut.write(line + "\n");
@@ -288,14 +291,11 @@ protected DateTimeFormatter LocalFormatter = DateTimeFormatter.ofPattern("dd.MM.
 			e.printStackTrace();
 		}
 		
-		
+		}
 	}
 	
-	/* public void broadcast(ToDo toDo) {
-		logger.info("Broadcasting message to clients");
-		for (Client c : clients) {
-			c.send(outMsg);
-		}
-	} */
+	public static TreeSet<ToDo> getTodolistserver() {
+		return toDolistServer;
+	}
 	
 }

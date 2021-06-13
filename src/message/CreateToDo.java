@@ -16,6 +16,7 @@ public class CreateToDo extends Message {
 	private String dueDate;
 	private String username;
 	private LocalDate today = LocalDate.now();
+	private ToDo toDo;
 	
 
 	public CreateToDo(String[] data) {
@@ -31,20 +32,29 @@ public class CreateToDo extends Message {
 	public void process(Client client) {
 		boolean result = false; 
 		Prio prio = Prio.valueOf(priority);
-		LocalDate localDate = LocalDate.parse(dueDate);
+		System.out.println("Bis hier klappts");
 		if (client.getToken().equals(token)) {
 			if(title.length()>= 3) {
-				if(localDate.compareTo(today) >= 0) {
-					this.username = client.getAccount().getUsername();
-					ToDo toDo = new ToDo(this.title, prio, this.description,localDate, this.username);
-					//Client_Model.getTodolist()
-					ToDo.getTodolistserver().add(toDo);
+				if(this.dueDate.equals("null")) {
+					this.toDo = new ToDo(this.title, prio, this.description,null, this.username);
+					Client_Model.getTodolistserver().add(toDo);
 					result = true;
+				} else {
+					LocalDate localDate = LocalDate.parse(dueDate);
+					if(localDate.compareTo(today) >= 0) {
+					this.username = client.getAccount().getUsername();
+					this.toDo = new ToDo(this.title, prio, this.description, localDate, this.username);
+					Client_Model.getTodolistserver().add(toDo);
+					result = true;
+					
+				}
+				
 				}
 			}
+
+
 		}
 		client.send(new Result(result, ToDo.getIDNr()));
-		
 	}
 
 }

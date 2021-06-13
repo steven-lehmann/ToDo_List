@@ -1,6 +1,7 @@
 package message;
 
 import ToDo_Server.Client;
+import ToDo_Server.Client_Model;
 import ToDo_Server.ToDo;
 
 public class GetToDo extends Message {
@@ -19,7 +20,7 @@ public class GetToDo extends Message {
 	public void process(Client client) {
 		boolean result = false; 
 		if(client.getToken().equals(token)) {
-			for(ToDo t : ToDo.getTodolistserver()) {
+			for(ToDo t : Client_Model.getTodolistserver()) {
 				if(t.getID() == Integer.parseInt(id)) {
 				line = Integer.toString(t.getID()) + "|" + t.getTitle() + "|" + t.getPriority() + "|" + 
 						t.getDescription() + "|" + t.getDueDate();

@@ -22,7 +22,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	private String username;
 
 	
-	protected static TreeSet<ToDo> toDolistServer = new TreeSet<ToDo>();
+	//protected static TreeSet<ToDo> toDolistServer = new TreeSet<ToDo>();
 
 
 	private static int getNexID() {
@@ -31,8 +31,10 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 	@Override
 	public String toString() {
-		return title + " Deadline: " + dueDate + " " +ID;
+		return title + " Deadline: " + title + " " +ID;
 	}
+	
+
 
 	public ToDo(String title, Prio priority, String description, LocalDate dueDate, String username) {
 		this.ID = getNexID();
@@ -44,14 +46,13 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	}
 	
 	
-	public ToDo(String title, Prio priority, String description, String username) {
+	/*public ToDo(String title, Prio priority, String description, String username) {
 		this.ID = getNexID();
 		this.title = title;
 		this.priority = priority;
 		this.description = description;
-		this.dueDate = null;
 		this.username = username;
-	}
+	}*/
 	
 	
 	public String getUsername() {
@@ -109,11 +110,11 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 	@Override
 	public int compareTo(ToDo o) {
-		int compValue = this.getTitle().compareTo(o.getTitle());
-		if(compValue  == 0)
+		//int compValue = this.getTitle().compareTo(o.getTitle());
+		if(this.ID  == o.getID())
 			return 0;
 			else
-				if (compValue < 0)
+				if (this.ID < o.getID())
 					return -1;
 				else
 					return 1;
@@ -140,9 +141,7 @@ public class ToDo implements Serializable, Comparable <ToDo>, Sendable{
 	
 	
 
-	public static TreeSet<ToDo> getTodolistserver() {
-		return toDolistServer;
-	}
+	
 	
 
 }

@@ -169,7 +169,10 @@ public class Client_Controller {
 	
 	
 	private void showToDo(MouseEvent mouseevent1) throws IOException {
+		try {
 		view.changeViewCreateToDOs();
+		view.btDelete.setVisible(true);
+		view.btSave.setVisible(false);
 		String id = view.myList.getSelectionModel().getSelectedItem();
 		String toDoLine = model.GeToDo(Integer.parseInt(id));
 		
@@ -182,6 +185,9 @@ public class Client_Controller {
 			view.txtaDescription.setText(parts[3]);
 			LocalDate localDate = LocalDate.parse(parts[4]);
 			view.dpDueDate.setValue(localDate);
+		} catch (NumberFormatException e) {
+			
+		}
 	
 	}
 		// disable
@@ -201,10 +207,17 @@ public class Client_Controller {
 	}
 	*/
 	private void deleteToDo(Event e) throws IOException {
+		try {
 		int id = Integer.parseInt(view.txtID.getText());
 		model.DeleteToDo(id);
 		view.changeMainView();
 		this.updateView(null);
+		}catch(NumberFormatException ex) {
+			Alert errorAlert = new Alert(AlertType.ERROR);
+			errorAlert.setHeaderText("Leeres ToDo");
+			errorAlert.setContentText("Leere ToDos können nicht gelöscht werden!");
+			errorAlert.showAndWait();
+		}
 
 		
 	}
@@ -224,7 +237,6 @@ public class Client_Controller {
 			view.chbPriority.getSelectionModel().select(null);
 			view.dpDueDate.setValue(null);
 			view.txtID.setText("");
-			view.txtCreator.setText("");
 		}
 		
 	}
@@ -267,7 +279,8 @@ public class Client_Controller {
 	}
 	
 	private void changeViewPW(Event e) {
-		view.btChangePassword.setDisable(false);
+		view.btChange.setDisable(false);
+		view.txtNewPW.setDisable(false);
 		view.changeViewPW();
 	}
 	
@@ -277,7 +290,9 @@ public class Client_Controller {
 		view.chbPriority.setDisable(false);
 		view.dpDueDate.setDisable(false);
 		view.btDelete.setDisable(true);
+		view.btDelete.setVisible(false);
 		view.btSave.setDisable(false);
+		view.btSave.setVisible(true);
 		view.changeViewCreateToDOs();
 		updateView(null);
 		
@@ -311,7 +326,8 @@ public class Client_Controller {
 	private void changePassword(Event e) throws IOException {
 		String newPW = view.txtNewPW.getText();
 		model.newPassword(newPW);
-		view.btChangePassword.setDisable(true);
+		view.btChange.setDisable(true);
+		view.txtNewPW.setDisable(true);
 		
 	}
 	
