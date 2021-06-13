@@ -107,11 +107,11 @@
 .toolbarMyView{
 	-fx-padding: 10;
 	-fx-spacing: 10;
-	-fx-background-color: #f8f8ff;
+	-fx-background-color: #dcdcf7;
 }
 
 .bottombar{
-	-fx-background-color: #f8f8ff;
+	-fx-background-color: #dcdcf7;
 	-fx-padding: 5;
 }
 
@@ -151,7 +151,7 @@
 
 .toolbarPWView{
 	-fx-padding: 10;
-	-fx-background-color: #f8f8ff;
+	-fx-background-color: #dcdcf7;
 }
 
 .toDoView{
